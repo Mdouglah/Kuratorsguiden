@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <script>
   /* Nattläge, samma som på Norvay: sätts innan sidan ritas. Utan sparat val följer sidan enhetens inställning.
-     Valet sparas bara i webbläsaren (localStorage, nyckeln "norvay-tema"). */
-  (function(){var t;try{t=localStorage.getItem('norvay-tema')}catch(e){}if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();
+     Valet sparas i kakan "norvay-tema" (bara light eller dark) för hela norvayapp.se, så att det följer med
+     mellan Norvays verktyg. Ett äldre val i localStorage läses fortfarande. */
+  (function(){var t,m=document.cookie.match(/(?:^|; )norvay-tema=(light|dark)/);if(m)t=m[1];if(!t){try{t=localStorage.getItem('norvay-tema')}catch(e){}}if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kuratorsguiden – stöd för skolkuratorer | Norvay</title>
@@ -23,9 +24,14 @@
 body{margin:0;}
 .norvay-bar, .norvay-bar * { margin:0; text-transform:none; font-style:normal; } .norvay-bar { box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; gap:16px; width:100%; min-height:44px; padding:8px 20px; background:#f5f3ec; border-bottom:1px solid rgba(18,63,55,0.14); font-family:'DM Sans',system-ui,sans-serif; font-size:14px; line-height:1.2; } .norvay-bar a { color:#123f37; text-decoration:none; } .norvay-bar a:hover { text-decoration:underline; text-underline-offset:3px; } .norvay-bar a:focus-visible { outline:3px solid #2f6b5a; outline-offset:3px; border-radius:6px; } .norvay-bar-back { font-weight:500; } .norvay-bar-brand { display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:12px; letter-spacing:0.2em; } .norvay-bar-mark { width:24px; height:24px; border:1.5px solid #123f37; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:13px; letter-spacing:0; } @media print { .norvay-bar { display:none !important; } }
 .norvay-bar-right{display:inline-flex;align-items:center;gap:12px}
-.n-theme{width:32px;height:32px;border-radius:50%;border:1px solid rgba(18,63,55,.14);background:transparent;color:#123f37;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
-.n-theme:hover{background:#d7e2d7}
-.n-theme svg{width:16px;height:16px}
+/* Månknappen: samma som på Norvays startsida (40 px, rund, ikon 18 px) */
+.n-theme{width:40px;height:40px;flex:0 0 40px;border-radius:50%;border:1px solid rgba(18,63,55,.14);background:transparent;color:#123f37;display:inline-grid;place-items:center;cursor:pointer;padding:0;transition:border-color .3s ease,color .3s ease}
+.n-theme:hover{border-color:#c9785f;color:#c9785f}
+.n-theme:focus-visible{outline:3px solid #2f6b5a;outline-offset:3px}
+.n-theme svg{width:18px;height:18px}
+/* Större tryckytor i listen på mobil (minst 44 px höga länkar) */
+.norvay-bar{padding-top:0;padding-bottom:0}
+.norvay-bar a{display:inline-flex;align-items:center;min-height:44px}
 
 /* ---------- Norvay-temat ---------- */
 :root{
@@ -51,7 +57,8 @@ body{margin:0;}
 :root[data-theme="dark"] .norvay-bar a{color:#ece7da}
 :root[data-theme="dark"] .norvay-bar-mark{border-color:#ece7da}
 :root[data-theme="dark"] .n-theme{color:#ece7da;border-color:rgba(236,231,218,.14)}
-:root[data-theme="dark"] .n-theme:hover{background:#1f4239}
+:root[data-theme="dark"] .n-theme:hover{border-color:#e3a58f;color:#e3a58f}
+:root[data-theme="dark"] .n-theme:focus-visible{outline-color:#8fc2a8}
 
 [data-tone="sage"]{--t-bg:#dfe9df;--t-deep:#2f6b5a}
 [data-tone="sand"]{--t-bg:#f0e5d1;--t-deep:#8a5a1f}
@@ -182,7 +189,7 @@ a{color:inherit}
   <footer class="n-footer">
     <p>Inget av det du skriver i Tänk igenom ett ärende sparas. Det försvinner när du stänger sidan. Min kommun sparas bara i den här webbläsaren. Ingen AI används, och inget skickas till oss.</p>
     <p>Kuratorsguiden är ett stöd för reflektion och ersätter inte handledning, juridisk rådgivning eller din huvudmans rutiner. Lagtexterna är kontrollerade i oktober 2026.</p>
-    <p>Kuratorsguiden är ett verktyg från Norvay. Frågor och synpunkter: <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>. Skicka aldrig elevuppgifter via mejl.</p>
+    <p>Ett verktyg från <a href="https://norvayapp.se">Norvay</a> · <a href="https://norvayapp.se/integritet">Integritet</a> · <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>. Skicka aldrig elevuppgifter via mejl.</p>
   </footer>
 </div>
 
@@ -600,6 +607,12 @@ window.addEventListener('beforeunload', e => {
 const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
 const SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
 const themeBtn = document.getElementById('themeBtn');
+/* Sparar valet i kakan "norvay-tema" för alla Norvays verktyg (ett år). Bara ordet light eller dark. */
+function sparaTema(t){
+  const doman = /(^|\.)norvayapp\.se$/.test(location.hostname) ? '; domain=.norvayapp.se' : '';
+  const saker = location.protocol === 'https:' ? '; secure' : '';
+  document.cookie = 'norvay-tema=' + t + '; path=/; max-age=31536000; samesite=lax' + saker + doman;
+}
 function paintThemeBtn(){
   const dark = document.documentElement.getAttribute('data-theme') === 'dark';
   themeBtn.innerHTML = dark ? SUN : MOON;
@@ -609,7 +622,7 @@ function paintThemeBtn(){
 themeBtn.addEventListener('click', () => {
   const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
-  try { localStorage.setItem('norvay-tema', next); } catch(e) {}
+  sparaTema(next);
   paintThemeBtn();
 });
 paintThemeBtn();
