@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<script>
+  /* Nattläge, samma som på Norvay: sätts innan sidan ritas. Utan sparat val följer sidan enhetens inställning.
+     Valet sparas bara i webbläsaren (localStorage, nyckeln "norvay-tema"). */
+  (function(){var t;try{t=localStorage.getItem('norvay-tema')}catch(e){}if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuratorsguiden – stöd för skolkuratorer | Norvay</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23f5f3ec' stroke='%23123f37' stroke-width='1.5'/%3E%3Ctext x='16' y='21' font-family='Georgia,serif' font-size='15' text-anchor='middle' fill='%23123f37'%3EN%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Kuratorsguiden från Norvay: stöd för skolkuratorer om uppdraget, orosanmälan, samtal, sekretess och att jobba ensam.">
+<style>
+/* Lokala typsnitt (inga anrop till Google). Saknas mappen fonts används systemets typsnitt. */
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/dm-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/dm-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/dm-sans-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/newsreader-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:italic;font-weight:400;font-display:swap;src:url(/fonts/newsreader-latin-400-italic.woff2) format('woff2')}
+
+/* Norvay-listen (samma som i alla Norvay-appar) */
+body{margin:0;}
+.norvay-bar, .norvay-bar * { margin:0; text-transform:none; font-style:normal; } .norvay-bar { box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; gap:16px; width:100%; min-height:44px; padding:8px 20px; background:#f5f3ec; border-bottom:1px solid rgba(18,63,55,0.14); font-family:'DM Sans',system-ui,sans-serif; font-size:14px; line-height:1.2; } .norvay-bar a { color:#123f37; text-decoration:none; } .norvay-bar a:hover { text-decoration:underline; text-underline-offset:3px; } .norvay-bar a:focus-visible { outline:3px solid #2f6b5a; outline-offset:3px; border-radius:6px; } .norvay-bar-back { font-weight:500; } .norvay-bar-brand { display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:12px; letter-spacing:0.2em; } .norvay-bar-mark { width:24px; height:24px; border:1.5px solid #123f37; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:13px; letter-spacing:0; } @media print { .norvay-bar { display:none !important; } }
+.norvay-bar-right{display:inline-flex;align-items:center;gap:12px}
+.n-theme{width:32px;height:32px;border-radius:50%;border:1px solid rgba(18,63,55,.14);background:transparent;color:#123f37;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.n-theme:hover{background:#d7e2d7}
+.n-theme svg{width:16px;height:16px}
+
+/* ---------- Norvay-temat ---------- */
+:root{
+  --n-bg:#f5f3ec; --n-surface:#ffffff; --n-ink:#123f37; --n-ink-soft:#4f6b63; --n-line:rgba(18,63,55,.14);
+  --n-terracotta:#a4533c; --n-terracotta-soft:#c9785f;
+  --n-accent:#2f6b5a; --n-tint:#d7e2d7; --n-on-accent:#ffffff;
+  --n-warn-bg:#f6e4dd;
+  --n-radius:20px; --n-radius-sm:12px;
+  --n-font-display:'Newsreader',Georgia,'Times New Roman',serif;
+  --n-font-body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --n-bg:#0f2a24; --n-surface:#163731; --n-ink:#ece7da; --n-ink-soft:#a9bdb5; --n-line:rgba(236,231,218,.14);
+  --n-terracotta:#e3a58f; --n-terracotta-soft:#d08a72;
+  --n-accent:#8fc2a8; --n-tint:#1f4239; --n-on-accent:#0f2a24;
+  --n-warn-bg:#3b2a24;
+}
+:root[data-theme="dark"] .norvay-bar{background:#0f2a24;border-bottom-color:rgba(236,231,218,.14)}
+:root[data-theme="dark"] .norvay-bar a{color:#ece7da}
+:root[data-theme="dark"] .norvay-bar-mark{border-color:#ece7da}
+:root[data-theme="dark"] .n-theme{color:#ece7da;border-color:rgba(236,231,218,.14)}
+:root[data-theme="dark"] .n-theme:hover{background:#1f4239}
+
+[data-tone="sage"]{--t-bg:#dfe9df;--t-deep:#2f6b5a}
+[data-tone="sand"]{--t-bg:#f0e5d1;--t-deep:#8a5a1f}
+[data-tone="lila"]{--t-bg:#e7e2ef;--t-deep:#6f5f8f}
+[data-tone="blush"]{--t-bg:#f4e1d8;--t-deep:#a4533c}
+[data-tone="dimma"]{--t-bg:#e0e8ec;--t-deep:#3f5f6e}
+:root[data-theme="dark"] [data-tone="sage"]{--t-bg:#1f4239;--t-deep:#8fc2a8}
+:root[data-theme="dark"] [data-tone="sand"]{--t-bg:#3a3123;--t-deep:#e0c08f}
+:root[data-theme="dark"] [data-tone="lila"]{--t-bg:#2f2b3f;--t-deep:#c3b6e0}
+:root[data-theme="dark"] [data-tone="blush"]{--t-bg:#3b2a24;--t-deep:#e3a58f}
+:root[data-theme="dark"] [data-tone="dimma"]{--t-bg:#22343c;--t-deep:#a9c6d4}
+
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+.n-body{margin:0;background:var(--n-bg);color:var(--n-ink);font-family:var(--n-font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.n-body *,.n-body *::before,.n-body *::after{box-sizing:border-box}
+.n-body :focus-visible{outline:3px solid var(--n-accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+a{color:inherit}
+.n-h{font-family:var(--n-font-display);font-weight:400;letter-spacing:-.01em;line-height:1.12;margin:0 0 14px}
+.n-h1{font-size:clamp(2.5rem,6.4vw,4rem)}
+.n-h2{font-size:clamp(1.9rem,4.4vw,2.6rem)}
+.n-h3{font-size:1.3rem;line-height:1.25}
+.n-h em{font-style:italic;color:var(--n-terracotta)}
+.lead{font-size:1.1rem;max-width:62ch;margin:0 0 8px}
+.small{font-size:.9rem;color:var(--n-ink-soft)}
+
+.n-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-size:1rem;font-weight:500;padding:10px 20px;min-height:44px;border-radius:999px;border:1px solid var(--n-accent);background:var(--n-accent);color:var(--n-on-accent);cursor:pointer;text-decoration:none}
+.n-btn:hover{background:var(--n-ink);border-color:var(--n-ink);color:var(--n-bg)}
+.n-btn--ghost{background:transparent;color:var(--n-accent)}
+.n-btn--ghost:hover{background:var(--n-tint);color:var(--n-ink);border-color:var(--n-accent)}
+.textlink{font:inherit;background:none;border:0;padding:4px 0;color:var(--n-accent);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.backbtn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font:inherit;font-size:.95rem;font-weight:600;color:var(--n-accent);background:var(--n-surface);border:1px solid var(--n-line);border-radius:999px;padding:8px 18px;min-height:42px;cursor:pointer}
+.backbtn:hover{background:var(--n-tint);border-color:var(--n-accent)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:20px}
+
+/* Startsidan */
+.hero{padding:40px 0 24px}
+.hero-circle{display:block;width:96px;height:auto;margin:0 0 16px -4px}
+.hero-for{color:var(--n-ink-soft);margin:0 0 8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:8px 0 28px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;font:inherit;color:inherit;cursor:pointer;background:var(--t-bg,var(--n-surface));border:1px solid transparent;border-radius:var(--n-radius);padding:20px 22px;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--t-deep,var(--n-accent));transform:translateY(-2px)}
+.card .badge{width:44px;height:44px;border-radius:50%;background:var(--n-surface);color:var(--t-deep,var(--n-accent));display:inline-flex;align-items:center;justify-content:center;font-family:var(--n-font-display);font-size:1.1rem;margin-bottom:6px}
+.card .t{font-family:var(--n-font-display);font-size:1.4rem;line-height:1.2}
+.card .s{font-size:.93rem;color:var(--n-ink-soft)}
+.card.wide{grid-column:1/-1}
+.card.featured{background:var(--n-accent);color:var(--n-on-accent)}
+.card.featured .s{color:var(--n-on-accent);opacity:.9}
+.card.featured .badge{color:var(--n-accent)}
+.note{background:var(--n-surface);border:1px solid var(--n-line);border-radius:var(--n-radius);padding:18px 22px;margin:0 0 18px;font-size:.95rem}
+.note p{margin:0 0 6px}
+.note p:last-child{margin:0}
+.sources{margin:6px 0 0;padding-left:20px;font-size:.92rem;color:var(--n-ink-soft)}
+.sources li{margin:3px 0}
+
+/* Avsnitt */
+.sec-head{background:var(--t-bg);border-radius:var(--n-radius);padding:26px 26px 22px;margin-top:14px}
+.sec-head .badge{width:46px;height:46px;border-radius:50%;background:var(--n-surface);color:var(--t-deep);display:inline-flex;align-items:center;justify-content:center;font-family:var(--n-font-display);font-size:1.1rem;margin-bottom:10px}
+.sec-head .n-h2{color:var(--t-deep)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+.toc button{font:inherit;font-size:.88rem;font-weight:500;color:var(--n-ink);background:var(--n-surface);border:1px solid var(--n-line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.toc button:hover{border-color:var(--n-accent)}
+.blocks{display:grid;gap:14px;margin-top:18px}
+.block{background:var(--n-surface);border:1px solid var(--n-line);border-radius:var(--n-radius);padding:22px 24px}
+.block h2{font-family:var(--n-font-display);font-weight:400;font-size:1.35rem;line-height:1.25;margin:0 0 10px}
+.block p{margin:0 0 10px;max-width:66ch}
+.block p:last-child{margin-bottom:0}
+.block ul,.block ol{margin:0;padding-left:22px}
+.block li{margin:6px 0;max-width:64ch}
+.block.warn{background:var(--n-warn-bg);border-color:transparent;border-left:5px solid var(--n-terracotta)}
+.block.warn h2{color:var(--n-terracotta)}
+.block.tip{background:var(--n-tint);border-color:transparent}
+.block .see{margin-top:12px}
+
+/* Min kommun */
+.kommun{background:var(--n-tint);border-radius:var(--n-radius);padding:20px 24px}
+.kommun h2{font-family:var(--n-font-display);font-weight:400;font-size:1.3rem;margin:0 0 8px}
+.kommun dl{margin:0;display:grid;grid-template-columns:minmax(140px,auto) 1fr;gap:6px 16px}
+.kommun dt{font-weight:600}
+.kommun dd{margin:0;overflow-wrap:anywhere}
+@media (max-width:560px){ .kommun dl{grid-template-columns:1fr} .kommun dd{margin-bottom:8px} }
+.form{display:grid;gap:14px;max-width:560px;margin-top:18px}
+.form label{font-weight:600;display:block;margin-bottom:4px}
+.form .hint{font-weight:400;font-size:.88rem;color:var(--n-ink-soft);display:block}
+.form input,.form textarea,.ref textarea{width:100%;font:inherit;padding:11px 14px;border:1.5px solid var(--n-line);border-radius:var(--n-radius-sm);background:var(--n-surface);color:var(--n-ink)}
+.form input:focus,.form textarea:focus,.ref textarea:focus{border-color:var(--n-accent);outline:none}
+.saved{color:var(--n-accent);font-weight:600}
+
+/* Tänk igenom ett ärende */
+.ref{margin-top:18px}
+.progress{display:flex;gap:6px;margin:4px 0 18px}
+.progress i{flex:1;height:6px;border-radius:999px;background:var(--n-line)}
+.progress i.on{background:var(--n-accent)}
+.ref-card{background:var(--n-surface);border:1px solid var(--n-line);border-radius:var(--n-radius);padding:24px}
+.ref-card ul{margin:0 0 14px;padding-left:22px}
+.ref-card li{margin:6px 0}
+.ref textarea{min-height:8rem;resize:vertical;line-height:1.55}
+.yesno{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 14px}
+.choice{font:inherit;cursor:pointer;background:var(--n-surface);color:var(--n-ink);border:1.5px solid var(--n-line);border-radius:999px;padding:9px 20px}
+.choice[aria-pressed="true"]{background:var(--n-accent);border-color:var(--n-accent);color:var(--n-on-accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.checks{list-style:none;padding:0;margin:0 0 6px}
+.checks li{margin:8px 0}
+.checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.checks input{width:20px;height:20px;margin-top:3px;accent-color:var(--n-accent);flex:none}
+.privacy{font-size:.9rem;color:var(--n-ink-soft);margin:0 0 14px}
+.summary h3{font-family:var(--n-font-display);font-weight:400;font-size:1.2rem;margin:18px 0 6px}
+.summary p{margin:0;white-space:pre-wrap}
+
+.n-footer{border-top:1px solid var(--n-line);padding:28px 0 44px;margin-top:56px;font-size:.92rem;color:var(--n-ink-soft)}
+.n-footer p{margin:0 0 .8em;max-width:70ch}
+.n-footer a{color:var(--n-accent)}
+
+@media (prefers-reduced-motion:reduce){ .n-body *{transition:none!important;animation:none!important} }
+@media print{
+  :root,:root[data-theme="dark"]{--n-bg:#fff;--n-surface:#fff;--n-ink:#000;--n-ink-soft:#333;--n-line:#ccc;--n-tint:#eee;--n-accent:#000;--n-on-accent:#fff;--n-warn-bg:#fff}
+  .n-theme,.backbtn,.actions,.toc,.n-footer,.no-print{display:none!important}
+  .block,.ref-card{break-inside:avoid}
+}
+</style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="2e81b730-fb1d-4183-9323-de51c8949318" data-tag="kuratorsguiden" data-do-not-track="true"></script>
+</head>
+<body class="n-body">
+<div class="norvay-bar"><a class="norvay-bar-back" href="https://norvayapp.se/#verktyg">← Alla verktyg</a><span class="norvay-bar-right"><a class="norvay-bar-brand" href="https://norvayapp.se/" aria-label="Norvay startsida"><span class="norvay-bar-mark">N</span><span>NORVAY</span></a><button class="n-theme" id="themeBtn" type="button"></button></span></div>
+
+<div class="wrap">
+  <main id="app"></main>
+  <footer class="n-footer">
+    <p>Inget av det du skriver i Tänk igenom ett ärende sparas. Det försvinner när du stänger sidan. Min kommun sparas bara i den här webbläsaren. Ingen AI används, och inget skickas till oss.</p>
+    <p>Kuratorsguiden är ett stöd för reflektion och ersätter inte handledning, juridisk rådgivning eller din huvudmans rutiner. Lagtexterna är kontrollerade i oktober 2026.</p>
+    <p>Kuratorsguiden är ett verktyg från Norvay. Frågor och synpunkter: <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>. Skicka aldrig elevuppgifter via mejl.</p>
+  </footer>
+</div>
+
+<script>
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ==========================================================
+   INNEHÅLL
+   Varje avsnitt består av block:
+   {h, p}            rubrik och stycke
+   {h, list:[...]}   punktlista   {h, steps:[...]} numrerad lista
+   type:'warn'       viktig ruta  type:'tip' tipsruta
+   type:'kommun'     visar kortet Min kommun
+   see:[namn, länk, beskrivning]   länk till en annan Norvay-app
+   ========================================================== */
+const SECTIONS = [
+  { id:'uppdrag', title:'Kuratorns uppdrag', badge:'Up', tone:'sage',
+    lead:'Vad som ingår i uppdraget som skolkurator, och vad som inte gör det. Bra att ha när förväntningarna på dig blir otydliga.',
+    blocks:[
+      {h:'Elevhälsan enligt skollagen', p:'Enligt 2 kap. 25 § skollagen ska elevhälsan omfatta medicinska, psykologiska, psykosociala och specialpedagogiska insatser. Eleverna ska ha tillgång till skolläkare, skolsköterska, psykolog och kurator. Elevhälsan ska främst arbeta förebyggande och hälsofrämjande och stödja elevernas utveckling mot utbildningens mål.'},
+      {h:'Kuratorns perspektiv', p:'Kuratorn står för det psykosociala perspektivet: hur elevens situation i skolan, hemma och bland kamrater påverkar mående och lärande.'},
+      {h:'Det här ingår ofta', list:[
+        'Stödsamtal och krissamtal med elever, enskilt eller i grupp.',
+        'Psykosociala kartläggningar, till exempel vid hög frånvaro eller inför ett åtgärdsprogram.',
+        'Arbete i elevhälsoteamet tillsammans med rektor, skolsköterska, psykolog och specialpedagog.',
+        'Främjande och förebyggande arbete, som trygghetsarbete, arbete mot kränkningar och insatser i klasser.',
+        'Konsultation till lärare och mentorer i frågor om elevers psykosociala situation.',
+        'Samverkan med vårdnadshavare, socialtjänst, BUP, ungdomsmottagning och andra aktörer.']},
+      {h:'Det här ingår inte', list:[
+        'Behandling och terapi. Kuratorn ger stöd, men längre behandling ges av vården, till exempel BUP eller ungdomsmottagningen.',
+        'Disciplinära beslut. De är rektors ansvar.',
+        'Att utreda om ett barn far illa. Kuratorn anmäler oro, men utredningen görs av socialtjänsten.',
+        'Att ta över mentorns eller lärarens ansvar för eleven i vardagen.']},
+      {type:'tip', h:'När förväntningarna blir otydliga', p:'Be rektor om en skriftlig beskrivning av vad din tjänst ska innehålla och hur tiden ska fördelas mellan arbete med enskilda elever och förebyggande arbete. Det skyddar både dig och eleverna.'},
+      {h:'Läs mer', list:[
+        'Skollagen, 2 kap. 25 § om elevhälsan.',
+        'Vägledning för elevhälsan från Skolverket och Socialstyrelsen.',
+        'Kompetensbeskrivningen för skolkuratorer från Akademikerförbundet SSR och Föreningen Sveriges Skolkuratorer.']}
+    ]},
+  { id:'oros', title:'Orosanmälan', badge:'Or', tone:'blush',
+    lead:'När och hur du anmäler oro för ett barn till socialtjänsten, och vad som händer sedan.',
+    blocks:[
+      {type:'kommun'},
+      {h:'Skyldigheten', p:'Alla som arbetar i skolan är skyldiga att genast anmäla till socialnämnden om de i sin verksamhet får kännedom om eller misstänker att ett barn far illa. Det står i 19 kap. 1 § socialtjänstlagen (2025:400). Skyldigheten gäller barn under 18 år och är personlig. Den nya socialtjänstlagen har inte ändrat vad som gäller för orosanmälan.'},
+      {h:'Misstanke räcker', list:[
+        'Du ska inte utreda eller ha bevis. Det är socialtjänstens uppgift.',
+        'Anmäl genast, även om du är osäker. Det är socialtjänsten som gör bedömningen.',
+        'Du kan inte vara anonym när du anmäler i ditt arbete.',
+        'Har skolan en rutin där rektor skriver under eller anmäler tillsammans med dig, följ den. Men blir ingen anmälan gjord, ansvarar du själv för att den görs.']},
+      {h:'Exempel på när ett barn kan fara illa', list:[
+        'Fysiskt eller psykiskt våld, hot eller kränkningar i hemmet.',
+        'Sexuella övergrepp.',
+        'Att barnet ser eller hör våld mellan vuxna i familjen.',
+        'Försummelse: barnet får inte tillräckligt med mat, kläder, sömn, vård eller tillsyn.',
+        'Hedersrelaterat våld och förtryck.',
+        'Missbruk eller allvarlig psykisk ohälsa hos en vårdnadshavare, som påverkar barnet.',
+        'Barnets eget beteende, till exempel missbruk, kriminalitet eller allvarlig självskada.',
+        'Långvarig frånvaro där orsaken kan finnas i barnets hemsituation.']},
+      {h:'Så gör du en anmälan', steps:[
+        'Följ din kommuns rutin. Många kommuner har en e-tjänst eller en blankett. Se Min kommun högst upp.',
+        'Beskriv vad du har sett och hört, när det hände och i vilket sammanhang.',
+        'Skriv barnets egna ord ordagrant, inom citattecken.',
+        'Håll isär fakta och tolkningar. Skriv ”eleven säger att …” och ”jag har sett att …”.',
+        'Skriv dina kontaktuppgifter och hur du helst nås.',
+        'Dokumentera att anmälan är gjord, enligt skolans rutin.']},
+      {type:'warn', h:'När det är akut', list:[
+        'Berättar barnet om våld eller övergrepp och vågar inte gå hem: ring socialtjänsten direkt, innan skoldagen slutar.',
+        'Efter kontorstid: ring socialjouren.',
+        'Vid akut fara: ring 112.',
+        'Låt inte barnet gå hem innan du har pratat med socialtjänsten, om du är orolig för vad som väntar där.']},
+      {h:'Ska vårdnadshavarna få veta?', p:'Du får informera vårdnadshavarna om anmälan, och ofta är det bra för samarbetet. Men gäller oron våld, sexuella övergrepp eller hedersrelaterat våld från en vårdnadshavare ska du inte informera dem. Rådgör då med socialtjänsten först, så att barnet inte utsätts för fara.'},
+      {h:'Vad händer sedan?', list:[
+        'Socialtjänsten bedömer om barnet behöver skydd direkt och om en utredning ska inledas.',
+        'Du kan få veta om en utredning har inletts, men sällan mer än så, eftersom socialtjänsten har sekretess.',
+        'Socialtjänsten kan begära uppgifter från skolan i utredningen. Skolan är då skyldig att lämna uppgifter som kan ha betydelse.',
+        'Fortsätt ditt vanliga stödjande arbete med eleven. En anmälan avslutar inte skolans ansvar.',
+        'Blir du orolig igen ska du anmäla igen. Varje ny oro ska anmälas.']},
+      {type:'tip', h:'Bra att veta om vårdnadstvister', p:'Sedan den 15 januari 2026 är skolans personal skyldig att lämna uppgifter när socialtjänsten utreder vårdnad, boende eller umgänge. Kuratorer inom elevhälsan är undantagna från den skyldigheten (6 kap. 20 c § föräldrabalken). Skyldigheten att göra en orosanmälan när ett barn far illa gäller däremot som vanligt.'}
+    ]},
+  { id:'samtal', title:'Samtal', badge:'Sa', tone:'sand',
+    lead:'Korta guider för olika sorters samtal: vad du kan tänka på före, under och efter.',
+    blocks:[
+      {h:'Inför alla samtal', list:[
+        'Var tydlig med ramarna: hur lång tid ni har och vad samtalet ska handla om.',
+        'Berätta om tystnadsplikten och dess gränser, till exempel: ”Det du säger stannar här, utom om jag blir orolig för att du far illa. Då måste jag ta hjälp av andra, och då berättar jag det för dig.”',
+        'Lova aldrig att hålla något hemligt innan du vet vad det gäller.',
+        'Avsluta med att sammanfatta och komma överens om nästa steg.']},
+      {h:'Stödsamtal', p:'Målet är att eleven ska känna sig lyssnad på och få hjälp att se sin situation tydligare. Verktygen nedan kommer från motiverande samtal (MI), som är en bra grund för många elevsamtal.', list:[
+        'Ställ öppna frågor: ”Hur har du det?” och ”Berätta mer.”',
+        'Bekräfta det eleven känner: ”Det låter tungt.”',
+        'Reflektera och sammanfatta det eleven säger, så att eleven känner sig förstådd.',
+        'Fråga vad eleven själv vill ska hända och vad som har hjälpt tidigare.']},
+      {h:'Krissamtal', p:'Efter en allvarlig händelse, till exempel ett dödsfall, en olycka eller ett våldsamt angrepp.', list:[
+        'Skapa lugn och trygghet. Det viktigaste är att eleven inte är ensam.',
+        'Ge korrekt information med enkla ord. Gissa inte.',
+        'Berätta att starka reaktioner är normala: oro, sömnsvårigheter, ilska eller att inte känna något alls.',
+        'Hjälp med det praktiska: vem eleven ska prata med och hur eleven tar sig hem.',
+        'Följ skolans krisplan och informera vårdnadshavare.',
+        'Följ upp efter några dagar. Hänvisa till vården om reaktionerna inte minskar.']},
+      {h:'Konfliktsamtal', list:[
+        'Prata med parterna var för sig först.',
+        'Var neutral. Låt var och en berätta hur de upplevde det som hände.',
+        'Sätt ord på vad som hände, utan att döma personerna.',
+        'Fokusera framåt: vad behöver hända för att det ska fungera?',
+        'Gör en tydlig överenskommelse och bestäm när ni följer upp.',
+        'Gäller det kränkande behandling ska det anmälas till rektor, som anmäler till huvudmannen, enligt 6 kap. skollagen. Skolan ska skyndsamt utreda och vidta åtgärder.']},
+      {h:'Samtal med vårdnadshavare', list:[
+        'Förbered dig: vad är syftet, och vad vill du komma fram till?',
+        'Börja med något positivt om eleven, om det är möjligt.',
+        'Beskriv konkreta iakttagelser i stället för omdömen.',
+        'Lyssna på vårdnadshavarnas bild. De känner sitt barn bäst.',
+        'Använd en professionell tolk vid behov, aldrig eleven eller ett syskon.',
+        'Avsluta med en gemensam plan och dokumentera det ni kom överens om.']},
+      {h:'Samtal vid frånvaro', list:[
+        'Var nyfiken på orsakerna, utan att skuldbelägga.',
+        'Kartlägg skolan, hemmet, hälsan och kamratrelationerna. Orsakerna är ofta flera.',
+        'Fråga vad som skulle göra det lättare att komma till skolan.',
+        'Börja med små, realistiska steg och följ upp ofta.',
+        'Samverka med mentor, vårdnadshavare och övriga i elevhälsan.'],
+        see:['Närvaroappen','https://narvaroapp.norvayapp.se','Stöd för skolans frånvarotrappa.']},
+      {type:'warn', h:'När en elev berättar om självmordstankar eller självskada', list:[
+        'Ta det på allvar och fråga rakt: ”Har du tankar på att ta ditt liv?” Att fråga ökar inte risken. Det visar att du orkar lyssna.',
+        'Fråga om planer, hur ofta tankarna kommer och om eleven har skadat sig tidigare.',
+        'Lova inte sekretess. Berätta att du behöver ta hjälp av andra för att eleven ska få rätt stöd.',
+        'Lämna aldrig en elev ensam om du bedömer att risken är akut. Ring 112 eller kontakta psykiatrisk akutmottagning.',
+        'Kontakta vårdnadshavare samma dag, om det inte finns misstanke om att eleven far illa hemma. Då kontaktar du socialtjänsten först.',
+        'Involvera skolsköterskan och rektor enligt skolans rutin, och hjälp eleven vidare till vården, till exempel BUP.',
+        'Dokumentera vad som har sagts och vad du har gjort.',
+        'Ta hand om dig själv efteråt. Prata med rektor eller en handledare.']},
+      {type:'tip', h:'Stödlinjer att tipsa elever om', list:[
+        'BRIS: ring 116 111 eller chatta på bris.se. För dig under 18 år.',
+        'Mind Självmordslinjen: ring 90101 eller chatta via mind.se.',
+        '1177 Vårdguiden: råd om vård dygnet runt.',
+        'Vid akut fara: 112.']}
+    ]},
+  { id:'sekretess', title:'Sekretess och samverkan', badge:'Se', tone:'dimma',
+    lead:'Vad som gäller för tystnadsplikten i kuratorsarbetet, och hur du kan samverka med andra.',
+    blocks:[
+      {h:'Stark sekretess i elevhälsan', p:'I kommunala skolor gäller sekretess för uppgifter om en elevs personliga förhållanden i elevhälsans psykosociala insatser, enligt 23 kap. 2 § offentlighets- och sekretesslagen (OSL). Sekretessen är stark: uppgiften får bara lämnas ut om det står klart att eleven eller någon närstående inte lider men. I fristående skolor gäller i stället tystnadsplikt enligt 29 kap. skollagen.'},
+      {h:'Även inom skolan', list:[
+        'Sekretessen gäller även mot lärare, mentorer och rektor.',
+        'Dela bara det som behövs för att eleven ska få stöd, och helst med elevens eller vårdnadshavarnas samtycke.',
+        'Ofta räcker det att säga vad eleven behöver, inte varför: ”Eleven behöver kunna gå ut ur klassrummet vid behov.”']},
+      {h:'Samtycke', p:'Sekretessen kan hävas om eleven samtycker. För yngre elever är det vårdnadshavarna som samtycker. Ju äldre och mognare eleven är, desto mer ska elevens egen vilja väga. I vissa fall kan sekretess gälla även mot vårdnadshavarna, om eleven har nått en viss ålder och mognad (12 kap. 3 § OSL). Gör alltid en bedömning i det enskilda fallet.'},
+      {h:'När sekretessen inte hindrar', list:[
+        'Orosanmälan till socialtjänsten. Anmälningsskyldigheten gäller trots sekretessen.',
+        'När socialtjänsten begär uppgifter i en utredning om ett barn som far illa. En uppgiftsskyldighet som följer av lag bryter sekretessen (10 kap. 28 § OSL).',
+        'När eleven eller vårdnadshavarna samtycker.']},
+      {h:'Samverkan med andra', list:[
+        'Med samtycke kan du samverka med BUP, vårdcentral, ungdomsmottagning och socialtjänst.',
+        'Behöver eleven insatser från både kommunen och regionen kan en samordnad individuell plan, SIP, vara ett bra stöd. Den kräver samtycke.',
+        'Bjud gärna in till ett gemensamt möte i stället för att skicka information fram och tillbaka.']},
+      {h:'Dokumentation', list:[
+        'Följ huvudmannens rutiner för hur kuratorns anteckningar ska föras och förvaras.',
+        'Skriv sakligt och kortfattat: vad som hände, vad som sades och vad du gjorde.',
+        'Tänk på att eleven och vårdnadshavare kan begära att få läsa handlingarna. Skriv så att det du skriver tål att läsas av dem.',
+        'Förvara anteckningarna så att obehöriga inte kommer åt dem.']},
+      {type:'tip', h:'Osäker?', p:'Rådgör med huvudmannens jurist eller dataskyddsombud när du är osäker på vad som får lämnas ut. Du kan också ställa en fråga till socialtjänsten utan att nämna elevens namn.'}
+    ]},
+  { id:'ensam', title:'Att jobba ensam', badge:'En', tone:'lila',
+    lead:'Många kuratorer är ensamma i sin yrkesroll på skolan. Här finns stöd för att orka och göra ett bra jobb.',
+    blocks:[
+      {h:'Handledning', p:'Arbetsgivaren ansvarar för arbetsmiljön, även den psykosociala. Att regelbundet få prata om svåra ärenden med en erfaren handledare är en viktig del av ett hållbart kuratorsarbete. Be rektor om extern handledning om du inte har det. Många kommuner erbjuder gemensam handledning för skolkuratorer.'},
+      {h:'Hitta kollegor', list:[
+        'Ta kontakt med kuratorer på andra skolor i kommunen och föreslå ett nätverk som träffas några gånger per termin.',
+        'Föreningen Sveriges Skolkuratorer och Akademikerförbundet SSR samlar skolkuratorer i hela landet.',
+        'Använd Tänk igenom ett ärende här i appen när du behöver sortera dina tankar.']},
+      {h:'Gränser och prioritering', list:[
+        'Var tydlig med vad du hinner. Allt kan inte vara akut.',
+        'Prioritera elever där risken är störst, och skriv ner hur du prioriterar.',
+        'Säg nej till uppgifter som inte ingår i uppdraget, och hänvisa till rätt person.',
+        'Planera in tid för förebyggande arbete, så att allt inte blir brandsläckning.']},
+      {h:'Tecken på att det har blivit för mycket', list:[
+        'Du tänker på ärenden hela tiden, även på kvällar och helger.',
+        'Du sover sämre eller har svårt att koppla av.',
+        'Du känner dig likgiltig inför elevernas berättelser.',
+        'Du undviker vissa ärenden eller samtal.'],
+        p2:'Känner du igen dig? Prata med rektor, din handledare eller företagshälsovården. Det är en fråga om arbetsmiljö, inte ett personligt misslyckande.'},
+      {h:'Efter ett tungt samtal', list:[
+        'Ta en kort paus innan nästa samtal, om det går.',
+        'Skriv ner det viktigaste, så att du kan släppa det.',
+        'Prata med någon du litar på, utan att röja vem eleven är.',
+        'Gör något som ger dig återhämtning efter jobbet.']}
+    ]}
+];
+
+/* Tänk igenom ett ärende: steg för steg. Inget sparas. */
+const REF = [
+  {h:'Vad har hänt?', q:['Vad vet jag säkert, och vad är mina tolkningar?','Vem har berättat vad, och med vilka ord?','Hur länge har det pågått?'], note:true},
+  {h:'Är någon i fara just nu?', yesno:'fara', q:['Finns det en risk för att eleven eller någon annan skadas i dag?'],
+    yes:{type:'warn', h:'Agera nu', list:['Lämna inte eleven ensam.','Vid akut fara: ring 112.','Gäller det hemmet: ring socialtjänsten, eller socialjouren efter kontorstid.','Informera rektor.'], link:'oros'},
+    no:{type:'tip', h:'Bra', p:'Gå vidare och tänk igenom resten av ärendet i lugn och ro.'}},
+  {h:'Finns det oro för att eleven far illa?', yesno:'illa', q:['Har du kännedom om eller misstanke om att eleven far illa, hemma eller på grund av sitt eget beteende?'],
+    yes:{type:'warn', h:'Gör en orosanmälan', p:'Misstanke räcker, och du ska inte utreda själv. Anmäl genast enligt din kommuns rutin.', link:'oros'},
+    no:{type:'tip', h:'Var uppmärksam', p:'Fundera på om det kan finnas mer som du inte vet ännu. Blir du orolig senare ska du anmäla då.'}},
+  {h:'Vad är min roll här?', q:['Vad är kuratorns uppgift i det här ärendet, och vad är någon annans?','Förväntas jag göra något som egentligen ligger på rektor, mentor, vården eller socialtjänsten?','Vad kan jag göra själv, och vad behöver jag hjälp med?'], note:true},
+  {h:'Vad vill eleven?', q:['Vad säger eleven själv att den behöver?','Vad har redan hjälpt, och vad har inte hjälpt?','Har eleven fått säga vad den tycker om nästa steg?'], note:true},
+  {h:'Vem mer behöver vara med?', chips:['Rektor','Mentor','Skolsköterska','Psykolog','Specialpedagog','Elevhälsoteamet','Vårdnadshavare','Socialtjänsten','BUP eller vården'], q:['Har jag samtycke att prata med dem det gäller?'], note:true},
+  {h:'Sekretess och dokumentation', checks:['Jag vet vilka uppgifter jag får dela, och med vem.','Jag har samtycke där det behövs.','Jag har dokumenterat det viktigaste enligt skolans rutin.']},
+  {h:'Nästa steg', q:['Vilka ett till tre steg ska jag ta nu?','När följer jag upp, och med vem?'], note:true},
+  {h:'Hur mår jag?', q:['Hur påverkar det här ärendet mig?','Behöver jag prata med någon, till exempel en handledare?'], note:true}
+];
+
+/* ==========================================================
+   MIN KOMMUN (sparas bara i webbläsaren)
+   ========================================================== */
+const KSTORE = 'kuratorsguiden-kommun';
+const KFIELDS = [
+  ['kommun','Kommun',''],
+  ['soc','Socialtjänsten, barn och unga','Telefonnummer dagtid'],
+  ['jour','Socialjouren','Telefonnummer efter kontorstid'],
+  ['etjanst','E-tjänst eller blankett för orosanmälan','Klistra in länken, den börjar med https://'],
+  ['rutin','Skolans egen rutin','Till exempel vem som skriver under och var anmälan dokumenteras']
+];
+let kommun = {};
+try { kommun = JSON.parse(localStorage.getItem(KSTORE)) || {}; } catch(e) { kommun = {}; }
+const hasKommun = () => KFIELDS.some(([k]) => (kommun[k] || '').trim());
+const telLink = v => { const n = String(v).replace(/[^\d+]/g,''); return n.length >= 3 ? `<a href="tel:${esc(n)}">${esc(v)}</a>` : esc(v); };
+const urlLink = v => /^https:\/\/[^\s"'<>]+$/.test(v) ? `<a href="${esc(v)}" target="_blank" rel="noopener">${esc(v)}</a>` : esc(v);
+function kommunBox(){
+  if (!hasKommun()) return `<section class="kommun no-print"><h2>Min kommun</h2>
+    <p style="margin:0 0 10px">Fyll i din kommuns kontaktuppgifter för orosanmälan, så visas de här när du behöver dem. De sparas bara i din webbläsare.</p>
+    <button class="n-btn n-btn--ghost" data-act="kommun">Fyll i Min kommun</button></section>`;
+  const rows = KFIELDS.filter(([k]) => (kommun[k] || '').trim()).map(([k, label]) => {
+    const v = kommun[k].trim(), val = (k === 'soc' || k === 'jour') ? telLink(v) : k === 'etjanst' ? urlLink(v) : esc(v);
+    return `<dt>${esc(label)}</dt><dd>${val}</dd>`;
+  }).join('');
+  return `<section class="kommun"><h2>Min kommun</h2><dl>${rows}</dl>
+    <div class="actions no-print" style="margin-top:12px"><button class="textlink" data-act="kommun">Ändra</button></div></section>`;
+}
+
+/* ==========================================================
+   TILLSTÅND OCH NAVIGERING
+   Webbläsarens tillbaka-knapp fungerar inom appen.
+   ========================================================== */
+const S = { view:'home', sec:null, step:0 };
+let REFDATA = freshRef();
+function freshRef(){ return { notes:{}, yes:{}, chips:[], checks:{} }; }
+const $app = document.getElementById('app');
+const HIST = [];
+let hIdx = 0;
+const snap = () => ({ view:S.view, sec:S.sec, step:S.step });
+function show(){ render(); window.scrollTo(0,0); }
+function go(view, patch={}){
+  Object.assign(S, patch, {view});
+  try { HIST.length = hIdx + 1; HIST.push(snap()); hIdx++; history.pushState({kg:hIdx}, ''); } catch(e) {}
+  show();
+}
+window.addEventListener('popstate', e => {
+  const i = e.state && typeof e.state.kg === 'number' && HIST[e.state.kg] ? e.state.kg : 0;
+  hIdx = i; Object.assign(S, HIST[i] || {view:'home'}); show();
+});
+function goBack(){ if (hIdx > 0) history.back(); else go('home'); }
+const sec = id => SECTIONS.find(s => s.id === id);
+
+/* ==========================================================
+   VYER
+   ========================================================== */
+const backBtn = () => `<button class="backbtn" data-act="back" aria-label="Tillbaka till föregående sida"><span aria-hidden="true">←</span> Tillbaka</button>`;
+
+function viewHome(){
+  return `<header class="hero">
+    <svg class="hero-circle" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" style="color:var(--n-accent)" stroke-width="1.6"/><circle cx="97" cy="23" r="8" style="fill:var(--n-terracotta-soft)"/></svg>
+    <p class="hero-for">Kuratorsguiden, för dig som är skolkurator</p>
+    <h1 class="n-h n-h1">Stöd när du <em>står ensam</em></h1>
+    <p class="lead">Många skolkuratorer har ingen kollega att bolla med. Här finns det du behöver veta om uppdraget, orosanmälan, samtal och sekretess, och ett stöd för att tänka igenom svåra ärenden.</p>
+  </header>
+  <div class="cards">
+    <button class="card wide featured" data-act="ref"><span class="badge" aria-hidden="true">Tä</span><span class="t">Tänk igenom ett ärende</span><span class="s">Frågor steg för steg som hjälper dig att sortera ett svårt ärende. Inget sparas.</span></button>
+    ${SECTIONS.map(s => `<button class="card" data-tone="${s.tone}" data-act="sec" data-v="${s.id}"><span class="badge" aria-hidden="true">${s.badge}</span><span class="t">${esc(s.title)}</span><span class="s">${esc(s.lead)}</span></button>`).join('')}
+    <button class="card" data-act="kommun"><span class="badge" aria-hidden="true">Mk</span><span class="t">Min kommun</span><span class="s">${hasKommun() ? 'Dina kontaktuppgifter för orosanmälan.' : 'Fyll i din kommuns kontaktuppgifter för orosanmälan.'}</span></button>
+  </div>
+  <section class="note">
+    <p><strong>Om innehållet.</strong> Kuratorsguiden ger en överblick och ersätter inte handledning, juridisk rådgivning eller din huvudmans rutiner. Lagtexterna är kontrollerade i oktober 2026.</p>
+    <p class="small" style="margin-top:8px">Källor:</p>
+    <ul class="sources">
+      <li>Skollagen (2010:800), 2 kap. 25 § om elevhälsan, 6 kap. om kränkande behandling och 29 kap. om tystnadsplikt i fristående skolor.</li>
+      <li>Socialtjänstlagen (2025:400), 19 kap. 1 § om anmälningsskyldighet.</li>
+      <li>Offentlighets- och sekretesslagen (2009:400), 10 kap. 28 §, 12 kap. 3 § och 23 kap. 2 §.</li>
+      <li>Föräldrabalken, 6 kap. 20 c § om uppgiftsskyldighet i vårdnadsutredningar.</li>
+    </ul>
+  </section>`;
+}
+
+function blockHtml(b, i){
+  if (b.type === 'kommun') return kommunBox();
+  const cls = b.type ? ` ${b.type}` : '';
+  let body = '';
+  if (b.p) body += `<p>${esc(b.p)}</p>`;
+  if (b.list) body += `<ul>${b.list.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+  if (b.steps) body += `<ol>${b.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>`;
+  if (b.p2) body += `<p style="margin-top:12px">${esc(b.p2)}</p>`;
+  if (b.see) body += `<p class="see">Se också <a href="${esc(b.see[1])}" target="_blank" rel="noopener">${esc(b.see[0])}</a>: ${esc(b.see[2])}</p>`;
+  if (b.link) body += `<div class="actions no-print"><button class="n-btn n-btn--ghost" data-act="sec" data-v="${b.link}">Läs om ${esc(sec(b.link).title.toLowerCase())}</button></div>`;
+  return `<section class="block${cls}" id="b${i}">${b.h ? `<h2>${esc(b.h)}</h2>` : ''}${body}</section>`;
+}
+
+function viewSec(){
+  const s = sec(S.sec);
+  const heads = s.blocks.map((b, i) => [b.h, i]).filter(([h]) => h);
+  return `${backBtn()}
+  <header class="sec-head" data-tone="${s.tone}"><span class="badge" aria-hidden="true">${s.badge}</span><h1 class="n-h n-h2">${esc(s.title)}</h1><p class="lead" style="margin:0">${esc(s.lead)}</p></header>
+  ${heads.length > 4 ? `<nav class="toc" aria-label="På den här sidan">${heads.map(([h, i]) => `<button data-act="jump" data-v="${i}">${esc(h)}</button>`).join('')}</nav>` : ''}
+  <div class="blocks">${s.blocks.map(blockHtml).join('')}</div>`;
+}
+
+function viewKommun(){
+  return `${backBtn()}
+  <header class="sec-head" data-tone="sage"><span class="badge" aria-hidden="true">Mk</span><h1 class="n-h n-h2">Min kommun</h1>
+    <p class="lead" style="margin:0">Fyll i det som gäller där du jobbar. Uppgifterna visas i avsnittet om orosanmälan och sparas bara i den här webbläsaren. Skriv inga uppgifter om elever här.</p></header>
+  <div class="form">
+    ${KFIELDS.map(([k, label, hint]) => `<div><label for="k-${k}">${esc(label)}${hint ? `<span class="hint">${esc(hint)}</span>` : ''}</label>
+      ${k === 'rutin' ? `<textarea id="k-${k}" rows="3">${esc(kommun[k] || '')}</textarea>` : `<input id="k-${k}" value="${esc(kommun[k] || '')}" autocomplete="off">`}</div>`).join('')}
+  </div>
+  <div class="actions"><button class="n-btn" data-act="ksave">Spara</button><button class="n-btn n-btn--ghost" data-act="kclear">Ta bort uppgifterna</button><span class="saved" id="kmsg" role="status"></span></div>
+  <p class="small" style="margin-top:18px">Tips: kommunens nummer och e-tjänst för orosanmälan hittar du oftast genom att söka på kommunens webbplats efter ”orosanmälan”.</p>`;
+}
+
+function viewRef(){
+  const st = REF[S.step], n = REF.length, k = `s${S.step}`;
+  let body = st.q ? `<ul>${st.q.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : '';
+  if (st.yesno) {
+    const v = REFDATA.yes[st.yesno];
+    body += `<div class="yesno" role="group" aria-label="Svara ja eller nej">
+      <button class="choice" data-act="yes" data-v="ja" aria-pressed="${v === 'ja'}">Ja</button>
+      <button class="choice" data-act="yes" data-v="nej" aria-pressed="${v === 'nej'}">Nej</button>
+      <button class="choice" data-act="yes" data-v="osäker" aria-pressed="${v === 'osäker'}">Osäker</button></div>`;
+    if (v === 'ja' || v === 'osäker') body += blockHtml(st.yes, 'y');
+    if (v === 'nej') body += blockHtml(st.no, 'n');
+  }
+  if (st.chips) body += `<div class="chips" role="group" aria-label="Välj vilka som behöver vara med">${st.chips.map(c => `<button class="choice" data-act="chip" data-v="${esc(c)}" aria-pressed="${REFDATA.chips.includes(c)}">${esc(c)}</button>`).join('')}</div>`;
+  if (st.checks) body += `<ul class="checks">${st.checks.map((c, i) => `<li><label><input type="checkbox" data-check="${i}" ${REFDATA.checks[i] ? 'checked' : ''}> <span>${esc(c)}</span></label></li>`).join('')}</ul>`;
+  if (st.note) body += `<label for="note" style="font-weight:600;display:block;margin:8px 0 6px">Dina anteckningar</label><textarea id="note" data-key="${k}">${esc(REFDATA.notes[k] || '')}</textarea>`;
+  return `${backBtn()}
+  <header class="sec-head" data-tone="sage" style="padding-bottom:18px"><h1 class="n-h n-h2" style="margin-bottom:6px">Tänk igenom ett ärende</h1>
+    <p class="small" style="margin:0">Steg ${S.step + 1} av ${n}</p></header>
+  <div class="ref">
+    <div class="progress" aria-hidden="true">${REF.map((_, i) => `<i class="${i <= S.step ? 'on' : ''}"></i>`).join('')}</div>
+    <p class="privacy">Skriv inga namn, personnummer eller annat som kan peka ut en elev. Inget sparas, och allt försvinner när du stänger sidan.</p>
+    <section class="ref-card"><h2 class="n-h n-h3">${esc(st.h)}</h2>${body}</section>
+    <div class="actions">
+      ${S.step > 0 ? `<button class="n-btn n-btn--ghost" data-act="prev">Föregående steg</button>` : ''}
+      ${S.step < n - 1 ? `<button class="n-btn" data-act="next">Nästa steg</button>` : `<button class="n-btn" data-act="sum">Se sammanfattningen</button>`}
+    </div>
+  </div>`;
+}
+
+function viewSum(){
+  const parts = REF.map((st, i) => {
+    const out = [];
+    if (st.yesno && REFDATA.yes[st.yesno]) out.push(`Svar: ${REFDATA.yes[st.yesno]}`);
+    if (st.chips && REFDATA.chips.length) out.push(`Behöver vara med: ${REFDATA.chips.join(', ')}`);
+    if (st.checks) out.push(st.checks.map((c, j) => `${REFDATA.checks[j] ? '✓' : '○'} ${c}`).join('\n'));
+    const note = (REFDATA.notes[`s${i}`] || '').trim();
+    if (note) out.push(note);
+    return out.length ? `<h3>${esc(st.h)}</h3><p>${esc(out.join('\n'))}</p>` : '';
+  }).join('');
+  return `${backBtn()}
+  <header class="sec-head" data-tone="sage"><h1 class="n-h n-h2">Sammanfattning</h1>
+    <p class="lead" style="margin:0">Här är det du har tänkt igenom. Skriv gärna ut det som en minneslapp. Kontrollera först att inga namn finns med.</p></header>
+  <section class="ref-card summary" style="margin-top:18px">${parts || '<p>Du har inte skrivit något ännu.</p>'}</section>
+  <div class="actions"><button class="n-btn" data-act="print">Skriv ut</button><button class="n-btn n-btn--ghost" data-act="restart">Börja om med ett nytt ärende</button><button class="textlink" data-act="home">Till startsidan</button></div>`;
+}
+
+function render(){
+  const v = { home:viewHome, sec:viewSec, kommun:viewKommun, ref:viewRef, sum:viewSum }[S.view] || viewHome;
+  $app.innerHTML = v();
+}
+
+/* ==========================================================
+   HÄNDELSER
+   ========================================================== */
+function saveNote(){ const t = document.getElementById('note'); if (t) REFDATA.notes[t.dataset.key] = t.value; }
+$app.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]');
+  if (!b) return;
+  const v = b.dataset.v;
+  switch (b.dataset.act) {
+    case 'back': saveNote(); goBack(); break;
+    case 'home': go('home'); break;
+    case 'sec': saveNote(); go('sec', {sec:v}); break;
+    case 'kommun': go('kommun'); break;
+    case 'jump': { const el = document.getElementById('b' + v); if (el) el.scrollIntoView({behavior:'smooth', block:'start'}); break; }
+    case 'ref': go('ref', {step:0}); break;
+    case 'next': saveNote(); go('ref', {step:S.step + 1}); break;
+    case 'prev': saveNote(); go('ref', {step:S.step - 1}); break;
+    case 'sum': saveNote(); go('sum'); break;
+    case 'yes': saveNote(); REFDATA.yes[REF[S.step].yesno] = v; render(); break;
+    case 'chip': { saveNote(); const i = REFDATA.chips.indexOf(v); if (i >= 0) REFDATA.chips.splice(i, 1); else REFDATA.chips.push(v); render(); break; }
+    case 'print': window.print(); break;
+    case 'restart': REFDATA = freshRef(); go('ref', {step:0}); break;
+    case 'ksave': {
+      KFIELDS.forEach(([k]) => { const el = document.getElementById('k-' + k); if (el) kommun[k] = el.value.trim(); });
+      try { localStorage.setItem(KSTORE, JSON.stringify(kommun)); document.getElementById('kmsg').textContent = 'Sparat.'; }
+      catch(err) { document.getElementById('kmsg').textContent = 'Det gick inte att spara i den här webbläsaren.'; }
+      break; }
+    case 'kclear':
+      if (confirm('Vill du ta bort uppgifterna om din kommun?')) { kommun = {}; try { localStorage.removeItem(KSTORE); } catch(err) {} render(); }
+      break;
+  }
+});
+$app.addEventListener('input', e => {
+  if (e.target.id === 'note') REFDATA.notes[e.target.dataset.key] = e.target.value;
+});
+$app.addEventListener('change', e => {
+  if (e.target.dataset.check != null) REFDATA.checks[e.target.dataset.check] = e.target.checked;
+});
+/* Varna innan sidan stängs om det finns anteckningar, eftersom de inte sparas */
+window.addEventListener('beforeunload', e => {
+  saveNote();
+  if (Object.values(REFDATA.notes).some(x => x && x.trim())) { e.preventDefault(); e.returnValue = ''; }
+});
+
+/* ---------- Nattläge (samma som på Norvay) ---------- */
+const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+const SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
+const themeBtn = document.getElementById('themeBtn');
+function paintThemeBtn(){
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  themeBtn.innerHTML = dark ? SUN : MOON;
+  themeBtn.setAttribute('aria-label', dark ? 'Byt till ljust läge' : 'Byt till mörkt läge');
+  themeBtn.setAttribute('aria-pressed', String(dark));
+}
+themeBtn.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try { localStorage.setItem('norvay-tema', next); } catch(e) {}
+  paintThemeBtn();
+});
+paintThemeBtn();
+
+HIST[0] = snap();
+try { history.replaceState({kg:0}, ''); } catch(e) {}
+render();
+</script>
+</body>
+</html>
