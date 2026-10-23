@@ -148,6 +148,7 @@ a{color:inherit}
 .q{margin:0 0 22px}
 .q:last-child{margin-bottom:0}
 .q-t{font-weight:600;margin:0 0 8px}
+.n-body textarea.q-svar{min-height:3.4rem}
 .privacy{font-size:.9rem;color:var(--n-ink-soft);margin:0 0 14px}
 
 /* Valknappar */
@@ -356,7 +357,7 @@ const MALLAR = [
    ========================================================== */
 const fresh = () => ({
   head:{ lopnr:'', klass:'', datum:'', kurator:'' },
-  g:{ ans:{}, notes:{}, sum:{}, uppf:[] },
+  g:{ ans:{}, txt:{}, notes:{}, sum:{}, uppf:[] },
   b:{ omr:{}, skydd:[], skyddAnnat:'', skyddKomm:'', uppm:[], uppmAnnat:'', uppmKomm:'', uppf:[], plan:'', fdatum:'', total:'', sammanf:'' }
 });
 let D = fresh();
@@ -461,6 +462,7 @@ function viewGuide(){
       const id = `${i - 1}-${j}`;
       let h = `<div class="q"><p class="q-t">${esc(q.t)}</p>`;
       if (q.o) h += q.multi ? multi(`g.ans.${id}`, q.o) : pick(`g.ans.${id}`, q.o);
+      h += `<textarea class="q-svar" data-f="g.txt.${id}" rows="2" aria-label="${esc((q.o ? 'Kommentar: ' : 'Svar: ') + q.t)}" placeholder="${q.o ? 'Kommentar' : 'Elevens svar'}">${esc(D.g.txt[id] || '')}</textarea>`;
       return h + '</div>';
     }).join('')
     + `<div class="q">${field(`g.notes.${i - 1}`,'Anteckningar',{area:true})}</div>`
@@ -487,7 +489,12 @@ function viewGsum(){
   const meta = [['Löpnummer',h.lopnr],['Klass',h.klass],['Datum',h.datum],['Kurator',h.kurator]].filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join('   ');
   const parts = GUIDE.map((sec, si) => {
     const lines = [];
-    sec.q.forEach((q, j) => { const a = D.g.ans[`${si}-${j}`]; if (a && (!Array.isArray(a) || a.length)) lines.push(`${q.t}\n→ ${Array.isArray(a) ? a.join(', ') : a}`); });
+    sec.q.forEach((q, j) => {
+      const a = D.g.ans[`${si}-${j}`], t = (D.g.txt[`${si}-${j}`] || '').trim(), svar = [];
+      if (a && (!Array.isArray(a) || a.length)) svar.push(Array.isArray(a) ? a.join(', ') : a);
+      if (t) svar.push(t);
+      if (svar.length) lines.push(`${q.t}\n→ ${svar.join('. ')}`);
+    });
     const note = (D.g.notes[si] || '').trim(); if (note) lines.push(note);
     return lines.length ? `<h3>${si + 1}. ${esc(sec.h)}</h3><p>${esc(lines.join('\n\n'))}</p>` : '';
   }).join('');
