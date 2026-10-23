@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<script>
+  /* Nattläge, samma som på Norvay: sätts innan sidan ritas. Utan sparat val följer sidan enhetens inställning.
+     Valet sparas i kakan "norvay-tema" (bara light eller dark) för hela norvayapp.se, så att det följer med
+     mellan Norvays verktyg. Ett äldre val i localStorage läses fortfarande. */
+  (function(){var t,m=document.cookie.match(/(?:^|; )norvay-tema=(light|dark)/);if(m)t=m[1];if(!t){try{t=localStorage.getItem('norvay-tema')}catch(e){}}if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trivselsamtal åk 6 – Kuratorsguiden | Norvay</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23f5f3ec' stroke='%23123f37' stroke-width='1.5'/%3E%3Ctext x='16' y='21' font-family='Georgia,serif' font-size='15' text-anchor='middle' fill='%23123f37'%3EN%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Trivselsamtal åk 6 i Kuratorsguiden från Norvay: samtalsguide, dokumentationsblad och sammanställning för kuratorns samtal med elever i årskurs 6.">
+<style>
+/* Lokala typsnitt (inga anrop till Google). Saknas mappen fonts används systemets typsnitt. */
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/dm-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/dm-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/dm-sans-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/newsreader-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:italic;font-weight:400;font-display:swap;src:url(/fonts/newsreader-latin-400-italic.woff2) format('woff2')}
+
+/* Norvay-listen (samma som i alla Norvay-appar) */
+body{margin:0;}
+.norvay-bar, .norvay-bar * { margin:0; text-transform:none; font-style:normal; } .norvay-bar { box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; gap:16px; width:100%; min-height:44px; padding:8px 20px; background:#f5f3ec; border-bottom:1px solid rgba(18,63,55,0.14); font-family:'DM Sans',system-ui,sans-serif; font-size:14px; line-height:1.2; } .norvay-bar a { color:#123f37; text-decoration:none; } .norvay-bar a:hover { text-decoration:underline; text-underline-offset:3px; } .norvay-bar a:focus-visible { outline:3px solid #2f6b5a; outline-offset:3px; border-radius:6px; } .norvay-bar-back { font-weight:500; } .norvay-bar-brand { display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:12px; letter-spacing:0.2em; } .norvay-bar-mark { width:24px; height:24px; border:1.5px solid #123f37; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:13px; letter-spacing:0; } @media print { .norvay-bar { display:none !important; } }
+.norvay-bar-right{display:inline-flex;align-items:center;gap:12px}
+/* Månknappen: samma som på Norvays startsida (40 px, rund, ikon 18 px) */
+.n-theme{width:40px;height:40px;flex:0 0 40px;border-radius:50%;border:1px solid rgba(18,63,55,.14);background:transparent;color:#123f37;display:inline-grid;place-items:center;cursor:pointer;padding:0;transition:border-color .3s ease,color .3s ease}
+.n-theme:hover{border-color:#c9785f;color:#c9785f}
+.n-theme:focus-visible{outline:3px solid #2f6b5a;outline-offset:3px}
+.n-theme svg{width:18px;height:18px}
+/* Större tryckytor i listen på mobil (minst 44 px höga länkar) */
+.norvay-bar{padding-top:0;padding-bottom:0}
+.norvay-bar a{display:inline-flex;align-items:center;min-height:44px}
+
+/* ---------- Norvay-temat ---------- */
+:root{
+  --n-bg:#f5f3ec; --n-surface:#ffffff; --n-ink:#123f37; --n-ink-soft:#4f6b63; --n-line:rgba(18,63,55,.14);
+  --n-terracotta:#a4533c; --n-terracotta-soft:#c9785f;
+  --n-accent:#2f6b5a; --n-tint:#d7e2d7; --n-on-accent:#ffffff;
+  --n-warn-bg:#f6e4dd;
+  --c-g:#2f6b5a; --c-y:#8a5a1f; --c-r:#a4533c; --c-on:#ffffff;
+  --n-radius:20px; --n-radius-sm:12px;
+  --n-font-display:'Newsreader',Georgia,'Times New Roman',serif;
+  --n-font-body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --n-bg:#0f2a24; --n-surface:#163731; --n-ink:#ece7da; --n-ink-soft:#a9bdb5; --n-line:rgba(236,231,218,.14);
+  --n-terracotta:#e3a58f; --n-terracotta-soft:#d08a72;
+  --n-accent:#8fc2a8; --n-tint:#1f4239; --n-on-accent:#0f2a24;
+  --n-warn-bg:#3b2a24;
+  --c-g:#8fc2a8; --c-y:#e0c08f; --c-r:#e3a58f; --c-on:#0f2a24;
+}
+:root[data-theme="dark"] .norvay-bar{background:#0f2a24;border-bottom-color:rgba(236,231,218,.14)}
+:root[data-theme="dark"] .norvay-bar a{color:#ece7da}
+:root[data-theme="dark"] .norvay-bar-mark{border-color:#ece7da}
+:root[data-theme="dark"] .n-theme{color:#ece7da;border-color:rgba(236,231,218,.14)}
+:root[data-theme="dark"] .n-theme:hover{border-color:#e3a58f;color:#e3a58f}
+:root[data-theme="dark"] .n-theme:focus-visible{outline-color:#8fc2a8}
+
+[data-tone="sage"]{--t-bg:#dfe9df;--t-deep:#2f6b5a}
+[data-tone="sand"]{--t-bg:#f0e5d1;--t-deep:#8a5a1f}
+[data-tone="lila"]{--t-bg:#e7e2ef;--t-deep:#6f5f8f}
+[data-tone="blush"]{--t-bg:#f4e1d8;--t-deep:#a4533c}
+[data-tone="dimma"]{--t-bg:#e0e8ec;--t-deep:#3f5f6e}
+:root[data-theme="dark"] [data-tone="sage"]{--t-bg:#1f4239;--t-deep:#8fc2a8}
+:root[data-theme="dark"] [data-tone="sand"]{--t-bg:#3a3123;--t-deep:#e0c08f}
+:root[data-theme="dark"] [data-tone="lila"]{--t-bg:#2f2b3f;--t-deep:#c3b6e0}
+:root[data-theme="dark"] [data-tone="blush"]{--t-bg:#3b2a24;--t-deep:#e3a58f}
+:root[data-theme="dark"] [data-tone="dimma"]{--t-bg:#22343c;--t-deep:#a9c6d4}
+
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+.n-body{margin:0;background:var(--n-bg);color:var(--n-ink);font-family:var(--n-font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.n-body *,.n-body *::before,.n-body *::after{box-sizing:border-box}
+.n-body :focus-visible{outline:3px solid var(--n-accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+a{color:inherit}
+.n-h{font-family:var(--n-font-display);font-weight:400;letter-spacing:-.01em;line-height:1.12;margin:0 0 14px}
+.n-h1{font-size:clamp(2.5rem,6.4vw,4rem)}
+.n-h2{font-size:clamp(1.9rem,4.4vw,2.6rem)}
+.n-h3{font-size:1.3rem;line-height:1.25}
+.n-h em{font-style:italic;color:var(--n-terracotta)}
+.lead{font-size:1.1rem;max-width:62ch;margin:0 0 8px}
+.small{font-size:.9rem;color:var(--n-ink-soft)}
+
+.n-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-size:1rem;font-weight:500;padding:10px 20px;min-height:44px;border-radius:999px;border:1px solid var(--n-accent);background:var(--n-accent);color:var(--n-on-accent);cursor:pointer;text-decoration:none}
+.n-btn:hover{background:var(--n-ink);border-color:var(--n-ink);color:var(--n-bg)}
+.n-btn--ghost{background:transparent;color:var(--n-accent)}
+.n-btn--ghost:hover{background:var(--n-tint);color:var(--n-ink);border-color:var(--n-accent)}
+.textlink{font:inherit;background:none;border:0;padding:4px 0;color:var(--n-accent);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.backbtn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font:inherit;font-size:.95rem;font-weight:600;color:var(--n-accent);background:var(--n-surface);border:1px solid var(--n-line);border-radius:999px;padding:8px 18px;min-height:42px;cursor:pointer;text-decoration:none}
+.backbtn:hover{background:var(--n-tint);border-color:var(--n-accent)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:20px}
+
+/* Startsidan */
+.hero{padding:28px 0 24px}
+.hero-circle{display:block;width:96px;height:auto;margin:0 0 16px -4px}
+.hero-for{color:var(--n-ink-soft);margin:0 0 8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:8px 0 28px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;font:inherit;color:inherit;cursor:pointer;background:var(--t-bg,var(--n-surface));border:1px solid transparent;border-radius:var(--n-radius);padding:20px 22px;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--t-deep,var(--n-accent));transform:translateY(-2px)}
+.card .badge{width:44px;height:44px;border-radius:50%;background:var(--n-surface);color:var(--t-deep,var(--n-accent));display:inline-flex;align-items:center;justify-content:center;font-family:var(--n-font-display);font-size:1.1rem;margin-bottom:6px}
+.card .t{font-family:var(--n-font-display);font-size:1.4rem;line-height:1.2}
+.card .s{font-size:.93rem;color:var(--n-ink-soft)}
+.card.wide{grid-column:1/-1}
+.card.featured{background:var(--n-accent);color:var(--n-on-accent)}
+.card.featured .s{color:var(--n-on-accent);opacity:.9}
+.card.featured .badge{color:var(--n-accent)}
+.note{background:var(--n-surface);border:1px solid var(--n-line);border-radius:var(--n-radius);padding:18px 22px;margin:0 0 18px;font-size:.95rem}
+.note p{margin:0 0 6px}
+.note p:last-child{margin:0}
+
+/* Avsnitt och block */
+.sec-head{background:var(--t-bg);border-radius:var(--n-radius);padding:26px 26px 22px;margin-top:14px}
+.sec-head .badge{width:46px;height:46px;border-radius:50%;background:var(--n-surface);color:var(--t-deep);display:inline-flex;align-items:center;justify-content:center;font-family:var(--n-font-display);font-size:1.1rem;margin-bottom:10px}
+.sec-head .n-h2{color:var(--t-deep)}
+.blocks{display:grid;gap:14px;margin-top:18px}
+.block{background:var(--n-surface);border:1px solid var(--n-line);border-radius:var(--n-radius);padding:22px 24px}
+.block h2{font-family:var(--n-font-display);font-weight:400;font-size:1.35rem;line-height:1.25;margin:0 0 10px}
+.block p{margin:0 0 10px;max-width:66ch}
+.block p:last-child{margin-bottom:0}
+.block ul,.block ol{margin:0;padding-left:22px}
+.block li{margin:6px 0;max-width:64ch}
+.block.warn{background:var(--n-warn-bg);border-color:transparent;border-left:5px solid var(--n-terracotta)}
+.block.warn h2{color:var(--n-terracotta)}
+.block.tip{background:var(--n-tint);border-color:transparent}
+.block .see{margin-top:12px}
+
+/* Formulär */
+.form label,.lbl{font-weight:600;display:block;margin-bottom:4px}
+.hint{font-weight:400;font-size:.88rem;color:var(--n-ink-soft);display:block}
+.n-body input[type="text"],.n-body input[type="date"],.n-body input[type="number"],.n-body textarea{width:100%;font:inherit;padding:11px 14px;border:1.5px solid var(--n-line);border-radius:var(--n-radius-sm);background:var(--n-surface);color:var(--n-ink)}
+.n-body input:focus,.n-body textarea:focus{border-color:var(--n-accent);outline:none}
+.n-body textarea{min-height:5.5rem;resize:vertical;line-height:1.55}
+.head-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.saved{color:var(--n-accent);font-weight:600}
+.err{color:var(--n-terracotta);font-weight:600}
+
+/* Steg för steg */
+.progress{display:flex;gap:6px;margin:18px 0}
+.progress i{flex:1;height:6px;border-radius:999px;background:var(--n-line)}
+.progress i.on{background:var(--n-accent)}
+.ref-card{background:var(--n-surface);border:1px solid var(--n-line);border-radius:var(--n-radius);padding:24px}
+.q{margin:0 0 22px}
+.q:last-child{margin-bottom:0}
+.q-t{font-weight:600;margin:0 0 8px}
+.privacy{font-size:.9rem;color:var(--n-ink-soft);margin:0 0 14px}
+
+/* Valknappar */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+.choice{font:inherit;font-size:.95rem;cursor:pointer;background:var(--n-surface);color:var(--n-ink);border:1.5px solid var(--n-line);border-radius:999px;padding:8px 16px;min-height:42px}
+.choice:hover{border-color:var(--n-accent)}
+.choice[aria-pressed="true"]{background:var(--n-accent);border-color:var(--n-accent);color:var(--n-on-accent)}
+.choice[aria-pressed="true"]::before{content:"✓ "}
+.choice.g[aria-pressed="true"]{background:var(--c-g);border-color:var(--c-g);color:var(--c-on)}
+.choice.y[aria-pressed="true"]{background:var(--c-y);border-color:var(--c-y);color:var(--c-on)}
+.choice.r[aria-pressed="true"]{background:var(--c-r);border-color:var(--c-r);color:var(--c-on)}
+
+/* Områdesbedömning */
+.omr{display:grid;grid-template-columns:minmax(200px,1fr) auto;gap:6px 16px;align-items:center;padding:10px 0;border-bottom:1px solid var(--n-line)}
+.omr:last-of-type{border-bottom:0}
+.omr .chips{margin:0}
+@media (max-width:620px){ .omr{grid-template-columns:1fr} }
+.legend{font-size:.9rem;color:var(--n-ink-soft);margin:12px 0 0}
+
+/* Sammanställning */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--n-tint);border-radius:var(--n-radius-sm);padding:14px 16px}
+.kpi b{display:block;font-family:var(--n-font-display);font-weight:400;font-size:1.9rem;line-height:1.1}
+.kpi span{font-size:.9rem;color:var(--n-ink-soft)}
+.tblwrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:.95rem}
+.tbl th,.tbl td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--n-line);white-space:nowrap}
+.tbl th{font-weight:600}
+.tbl td.n,.tbl th.n{text-align:right}
+.summary h3{font-family:var(--n-font-display);font-weight:400;font-size:1.2rem;margin:18px 0 6px}
+.summary p{margin:0;white-space:pre-wrap}
+
+.n-footer{border-top:1px solid var(--n-line);padding:28px 0 44px;margin-top:56px;font-size:.92rem;color:var(--n-ink-soft)}
+.n-footer p{margin:0 0 .8em;max-width:70ch}
+.n-footer a{color:var(--n-accent)}
+
+@media (prefers-reduced-motion:reduce){ .n-body *{transition:none!important;animation:none!important} }
+@media print{
+  :root,:root[data-theme="dark"]{--n-bg:#fff;--n-surface:#fff;--n-ink:#000;--n-ink-soft:#333;--n-line:#ccc;--n-tint:#eee;--n-accent:#000;--n-on-accent:#fff;--n-warn-bg:#fff;--c-g:#000;--c-y:#000;--c-r:#000;--c-on:#fff}
+  .n-theme,.backbtn,.actions,.n-footer,.no-print,.progress,.privacy{display:none!important}
+  .choice{border-width:1px;padding:2px 10px;min-height:0}
+  .choice[aria-pressed="true"]{border-width:2px;font-weight:600;background:#fff!important;color:#000!important}
+  .block,.ref-card,.omr{break-inside:avoid}
+  .sec-head{background:#fff;padding:0}
+}
+</style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="2e81b730-fb1d-4183-9323-de51c8949318" data-tag="kuratorsguiden" data-do-not-track="true"></script>
+</head>
+<body class="n-body">
+<div class="norvay-bar"><a class="norvay-bar-back" href="https://norvayapp.se/#verktyg">← Alla verktyg</a><span class="norvay-bar-right"><a class="norvay-bar-brand" href="https://norvayapp.se/" aria-label="Norvay startsida"><span class="norvay-bar-mark">N</span><span>NORVAY</span></a><button class="n-theme" id="themeBtn" type="button"></button></span></div>
+
+<div class="wrap">
+  <main id="app"></main>
+  <footer class="n-footer">
+    <p>Det du skriver i samtalsguiden och dokumentationsbladet sparas inte. Det försvinner när du stänger sidan. Sammanställningen sparas bara i den här webbläsaren och innehåller löpnummer, klass, datum och dina val, aldrig fritext. Ingen AI används, och inget skickas till oss.</p>
+    <p>Trivselsamtal åk 6 är en del av <a href="/">Kuratorsguiden</a> och ersätter inte din huvudmans rutiner för elevhälsans dokumentation.</p>
+    <p>Ett verktyg från <a href="https://norvayapp.se">Norvay</a> · <a href="https://norvayapp.se/integritet">Integritet</a> · <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>. Skicka aldrig elevuppgifter via mejl.</p>
+  </footer>
+</div>
+
+<script>
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ==========================================================
+   INNEHÅLL
+   Frågorna och områdena följer mallarna Samtalsunderlag,
+   Kurators dokumentationsblad och Pilot statistik.
+   ========================================================== */
+
+/* De elva områdena. Namnen är exakt desamma som kolumnerna i Excel-filen. */
+const OMR = ['Skoltrivsel','Trygghet i skolan','Närvaro/skolanknytning','Familj/relationer hemma','Kamratrelationer/social situation','Psykiskt mående','Stress/oro','Sömn','Fritid/meningsfull aktivitet','Tillgång till trygg vuxen/stöd','Oro inför högstadiet'];
+const COLORS = [['Grön','g'],['Gul','y'],['Röd','r']];
+const SKYDD = ['Trygg vuxenrelation','Goda kamratrelationer','Positiv skolanknytning','Fungerande fritid/intresse','Något eleven tycker om/är bra på','Fungerande strategier','Annat'];
+const UPPM = ['Skoltrivsel/trygghet','Närvaro','Familj','Kamratrelationer/utsatthet','Mående/stress','Sömn','Fritid/social gemenskap','Brist på stöd/trygg vuxen','Högstadieoro','Annat'];
+const UPPF = ['Ingen','Kurator','Mentor/lärare','EHT','Annan elevhälsa','Vårdnadshavare enligt rutiner'];
+
+/* Samtalsguiden. o = svarsalternativ, multi = flera val. */
+const GUIDE = [
+  { h:'Skolan, trivsel och trygghet', q:[
+      {t:'Hur trivs du i skolan just nu?', o:['Mycket bra','Bra','Sådär','Inte så bra']},
+      {t:'Vad är det bästa med skolan just nu?'},
+      {t:'Finns det något i skolan som är jobbigt eller som du skulle vilja förändra?'},
+      {t:'Känner du dig trygg i skolan?', o:['Alltid','Oftast','Ibland','Sällan']},
+      {t:'Finns det någon vuxen på skolan som du kan prata med när något blir jobbigt?', o:['Ja','Nej','Vet inte']}],
+    tip:{type:'tip', h:'Att tänka på', list:[
+      'Börja med det som fungerar. Det gör det lättare för eleven att sedan berätta om det som är svårt.',
+      'Svarar eleven Ibland eller Sällan om tryggheten, fråga var och när det känns otryggt.',
+      'Berättar eleven om kränkningar ska du informera rektor, som är skyldig att utreda enligt 6 kap. skollagen.']} },
+  { h:'Närvaro och motivation', q:[
+      {t:'Hur brukar det vara att komma till skolan?'},
+      {t:'Finns det dagar då det är svårt att komma iväg till skolan?', o:['Nej','Ibland','Ofta']},
+      {t:'Vad är det som gör att du vill komma till skolan?'},
+      {t:'Är det något som gör det lättare eller svårare att vara i skolan hela dagen?'}],
+    tip:{type:'tip', h:'Att tänka på', list:[
+      'Fråga nyfiket och utan skuld. Orsakerna finns ofta på flera ställen samtidigt: i skolan, hemma, bland kompisar eller i hälsan.',
+      'Är det ofta svårt att komma iväg, titta på elevens frånvaro och prata med mentorn om hur ni följer upp.'],
+      see:['Närvaroappen','https://narvaroapp.norvayapp.se','Stöd för skolans frånvarotrappa.']} },
+  { h:'Familj och relationer hemma', q:[
+      {t:'Hur brukar du ha det hemma?'},
+      {t:'Hur fungerar det med din familj?'},
+      {t:'Finns det någon hemma som du kan prata med när något är jobbigt?', o:['Ja','Nej','Vet inte']},
+      {t:'Är det något hemma som påverkar hur du mår eller hur det fungerar i skolan?', o:['Nej','Ibland','Ja']}],
+    tip:{type:'warn', h:'Om eleven berättar något som väcker oro', list:[
+      'Ställ frågorna öppet och neutralt. Många barn vill skydda sin familj.',
+      'Lova aldrig att hålla något hemligt innan du vet vad det gäller.',
+      'Väcker det eleven berättar misstanke om att eleven far illa ska du göra en orosanmälan. Misstanke räcker.'],
+      see:['Orosanmälan i Kuratorsguiden','/#oros','Skyldigheten, så gör du och när det är akut.']} },
+  { h:'Kompisar och social situation', q:[
+      {t:'Hur fungerar det med kompisar?', o:['Jag har kompisar jag trivs med','Oftast bra','Ibland svårt','Känner mig ofta ensam']},
+      {t:'Känner du att du får vara med och vara dig själv?', o:['Ja','Oftast','Ibland','Nej']},
+      {t:'Har du blivit retad, lämnad utanför eller behandlad illa?', o:['Nej','Ja','Vill berätta mer']},
+      {t:'Finns det något kring kompisar eller relationer som du vill prata mer om?'}],
+    tip:{type:'tip', h:'Att tänka på', list:[
+      'Svarar eleven Ja eller Vill berätta mer, fråga när, var och om det pågår nu. Fråga också om någon vuxen redan vet.',
+      'Kränkande behandling ska anmälas till rektor, som anmäler till huvudmannen.',
+      'Känner sig eleven ofta ensam är det värt att följa upp, även om inget annat har kommit fram.']} },
+  { h:'Mående, stress och sömn', q:[
+      {t:'Hur tycker du att du mår just nu?', o:['Väldigt bra','Bra','Sådär','Inte så bra']},
+      {t:'Är det något du ofta oroar dig för eller tänker mycket på?', o:['Nej','Ibland','Ja']},
+      {t:'Känner du dig ofta stressad eller har svårt att koppla av?', o:['Nej','Ibland','Ofta']},
+      {t:'Vad brukar hjälpa dig när du känner dig stressad eller orolig?'},
+      {t:'Hur brukar du sova?', o:['Oftast bra','Varierar','Ofta svårt']},
+      {t:'Känner du dig oftast utvilad när du kommer till skolan?', o:['Ja','Ibland','Nej']}],
+    tip:{type:'warn', h:'Om eleven mår dåligt', list:[
+      'Fråga konkret om sömnen: när eleven somnar och vad eleven gör på kvällen.',
+      'Beskriver eleven nedstämdhet eller hopplöshet, fråga rakt om tankar på att skada sig eller att inte vilja leva. Att fråga ökar inte risken.',
+      'Lämna aldrig en elev ensam om du bedömer att risken är akut.'],
+      see:['Samtal i Kuratorsguiden','/#samtal','Vad du gör när en elev berättar om självmordstankar eller självskada.']} },
+  { h:'Fritid, intressen och det som fungerar', q:[
+      {t:'Vad brukar du göra på fritiden?'},
+      {t:'Finns det något du tycker särskilt mycket om att göra?'},
+      {t:'Finns det någon aktivitet, person eller plats där du känner dig trygg, glad eller får vara dig själv?'},
+      {t:'Hur fungerar det med din fritid?', o:['Jag har något jag trivs med','Oftast bra','Jag skulle vilja ha mer att göra','Svårt att hitta något']},
+      {t:'Vad tycker du själv att du är bra på?'}],
+    tip:{type:'tip', h:'Att tänka på', p:'Det här området handlar om elevens resurser. Det eleven berättar här är ofta det som bär en uppföljning, och det hör hemma under skyddsfaktorer i dokumentationsbladet.'} },
+  { h:'Stöd och hjälp', q:[
+      {t:'När du har det jobbigt – vem brukar du kunna prata med?', multi:true, o:['Vårdnadshavare/familj','Kompis','Lärare/mentor','Kurator','Annan vuxen','Ingen särskild']},
+      {t:'Vad brukar hjälpa dig när något känns svårt?'},
+      {t:'Känner du att du behöver någon hjälp eller stöd just nu?', o:['Nej','Kanske','Ja']}],
+    tip:{type:'tip', h:'Att tänka på', list:[
+      'Svarar eleven Ingen särskild är det en viktig signal i sig. Fråga om eleven vill ha hjälp att hitta en vuxen att vända sig till.',
+      'Svarar eleven Kanske eller Ja, fråga vad för slags stöd eleven tänker sig.']} },
+  { h:'Kort om högstadiet', q:[
+      {t:'Vad tänker du om att börja högstadiet?'},
+      {t:'Finns det något du ser fram emot?'},
+      {t:'Finns det något du känner dig orolig för?'}],
+    tip:{type:'tip', h:'Att tänka på', p:'Många elever är nervösa inför bytet, och det är bra att säga det. Notera konkreta farhågor, till exempel nya klasskamrater eller att hitta i skolan, så att de kan tas om hand inför övergången.'} },
+  { h:'Avslutning', q:[
+      {t:'Är det något annat du vill att jag ska veta?'},
+      {t:'Vad skulle göra din skolsituation ännu bättre?'}],
+    tip:{type:'tip', h:'Avsluta samtalet', list:[
+      'Sammanfatta det du har hört, och börja med det som fungerar.',
+      'Berätta vad som händer nu och om ni ska ses igen.',
+      'Tacka eleven för samtalet.']} }
+];
+
+const INTRO = {type:'tip', h:'Inför samtalet', list:[
+  'Syftet är ett kort, tryggt samtal om hur eleven har det i skolan, hemma och på fritiden. Samtalet fångar både resurser och sådant som kan behöva uppmärksammas.',
+  'Använd frågorna som stöd. Alla behöver inte ställas ordagrant om eleven redan har berättat om området.',
+  'Berätta om tystnadsplikten och dess gränser i början av samtalet.',
+  'Högstadiet tas upp kort mot slutet.']};
+
+const SUMQ = [['bra','Det som fungerar bra'],['stod','Det som kan behöva stöd eller uppmärksamhet'],['viktigt','Viktigt att ta hänsyn till']];
+const SUMUPPF = ['Nej','Kurator','Mentor/lärare','EHT','Annan enligt skolans rutiner'];
+
+const METOD = [
+  {h:'Syfte', p:'Trivselsamtalet är ett kort, tryggt samtal mellan kurator och elev i årskurs 6 om hur eleven har det i skolan, hemma och på fritiden. Samtalet fångar både resurser och sådant som kan behöva uppmärksammas. Högstadiet tas upp kort mot slutet.'},
+  {h:'Så går det till', steps:[
+    'Kuratorn håller samtalet med samtalsguiden som stöd. Frågorna behöver inte ställas ordagrant.',
+    'Efter samtalet fyller kuratorn i dokumentationsbladet: en bedömning per område, skyddsfaktorer, uppmärksamhetsområden och uppföljning.',
+    'Bedömningen registreras med löpnummer i sammanställningen.',
+    'När samtalen är klara utvärderas helheten tillsammans med elevhälsoteamet.']},
+  {h:'Färgerna', list:[
+    'Grön: fungerar överlag bra.',
+    'Gul: något behöver uppmärksammas eller följas upp.',
+    'Röd: tydlig oro eller stödbehov.'],
+    p2:'Bedöm varje område för sig. Färgen är ett arbetsstöd, inte en diagnos eller en automatisk riskklassificering.'},
+  {type:'warn', h:'Sekretess och dokumentation', list:[
+    'Använd löpnummer i sammanställningen, aldrig namn eller personnummer. Håll listan som kopplar löpnummer till elev åtskild från statistiken.',
+    'Dokumentationsbladet är en handling om en enskild elev. Förvara det enligt huvudmannens rutiner för elevhälsans dokumentation.',
+    'Redovisa resultaten på gruppnivå. Tänk på små grupper: där bara ett fåtal elever ingår kan en enskild elev pekas ut.']},
+  {h:'Frågor för utvärderingen', steps:[
+    'Hur många elever genomförde samtal?',
+    'Vilka områden återkom oftast?',
+    'Hur många elever behövde uppföljning?',
+    'Vilka typer av insatser behövdes?',
+    'Vilka behov upptäcktes som inte varit kända tidigare?',
+    'Vilka skyddsfaktorer var vanligast?',
+    'Hur upplevde eleverna samtalet?',
+    'Vad fungerade bra?',
+    'Vad behöver ändras?',
+    'Bör samtalen fortsätta i åk 6?',
+    'Bör modellen prövas även i åk 3?']},
+  {type:'mallar'}
+];
+
+const MALLAR = [
+  ['Samtalsunderlag (Word)','/mallar/Trivselsamtal_AK6_Samtalsunderlag.docx'],
+  ['Kurators dokumentationsblad (Word)','/mallar/Trivselsamtal_AK6_Kurators_dokumentationsblad.docx'],
+  ['Pilot statistik med dashboard (Excel)','/mallar/Trivselsamtal_AK6_Pilot_Statistik.xlsx']
+];
+
+/* ==========================================================
+   TILLSTÅND
+   D finns bara i minnet. Inget av det sparas.
+   ========================================================== */
+const fresh = () => ({
+  head:{ lopnr:'', klass:'', datum:'', kurator:'' },
+  g:{ ans:{}, notes:{}, sum:{}, uppf:[] },
+  b:{ omr:{}, skydd:[], skyddAnnat:'', skyddKomm:'', uppm:[], uppmAnnat:'', uppmKomm:'', uppf:[], plan:'', fdatum:'', total:'', sammanf:'' }
+});
+let D = fresh();
+const getP = p => p.split('.').reduce((o, k) => (o == null ? undefined : o[k]), D);
+function setP(p, v){ const ks = p.split('.'), last = ks.pop(); let o = D; ks.forEach(k => { if (o[k] == null) o[k] = {}; o = o[k]; }); o[last] = v; }
+const hasContent = () => JSON.stringify(D) !== JSON.stringify(fresh());
+
+/* Sammanställningen sparas bara i webbläsaren: löpnummer, klass, datum och val. Aldrig fritext. */
+const STORE = 'kuratorsguiden-trivselsamtal';
+let STAT = { malgrupp:'', rows:[] };
+try { const s = JSON.parse(localStorage.getItem(STORE)); if (s && Array.isArray(s.rows)) STAT = s; } catch(e) {}
+function saveStat(){ try { localStorage.setItem(STORE, JSON.stringify(STAT)); return true; } catch(e) { return false; } }
+
+/* ==========================================================
+   NAVIGERING (webbläsarens tillbaka-knapp fungerar)
+   ========================================================== */
+const S = { view:'home', step:0 };
+const STEPS = GUIDE.length + 2; /* inför samtalet, nio områden, sammanfattning */
+const $app = document.getElementById('app');
+const HIST = [];
+let hIdx = 0;
+const snap = () => ({ view:S.view, step:S.step });
+function show(){ render(); window.scrollTo(0,0); }
+function go(view, patch={}){
+  Object.assign(S, patch, {view});
+  try { HIST.length = hIdx + 1; HIST.push(snap()); hIdx++; history.pushState({ts:hIdx}, ''); } catch(e) {}
+  show();
+}
+window.addEventListener('popstate', e => {
+  const i = e.state && typeof e.state.ts === 'number' && HIST[e.state.ts] ? e.state.ts : 0;
+  hIdx = i; Object.assign(S, HIST[i] || {view:'home'}); show();
+});
+function goBack(){ if (hIdx > 0) history.back(); else go('home'); }
+
+/* ==========================================================
+   BYGGSTENAR
+   ========================================================== */
+const backBtn = () => `<button class="backbtn" data-act="back" aria-label="Tillbaka till föregående sida"><span aria-hidden="true">←</span> Tillbaka</button>`;
+const head = (title, lead, tone='sage', badge='Ts') => `<header class="sec-head" data-tone="${tone}"><span class="badge" aria-hidden="true">${badge}</span><h1 class="n-h n-h2">${esc(title)}</h1>${lead ? `<p class="lead" style="margin:0">${esc(lead)}</p>` : ''}</header>`;
+const field = (path, label, opt={}) => {
+  const id = 'f-' + path.replace(/\./g,'-'), v = getP(path) || '';
+  const hint = opt.hint ? `<span class="hint">${esc(opt.hint)}</span>` : '';
+  const ctl = opt.area
+    ? `<textarea id="${id}" data-f="${path}" rows="${opt.rows || 3}">${esc(v)}</textarea>`
+    : `<input type="${opt.type || 'text'}" id="${id}" data-f="${path}" value="${esc(v)}" autocomplete="off"${opt.mode ? ` inputmode="${opt.mode}"` : ''}${opt.max ? ` maxlength="${opt.max}"` : ''}>`;
+  return `<div><label class="lbl" for="${id}">${esc(label)}${hint}</label>${ctl}</div>`;
+};
+/* Enkelval: ett klick väljer, ett nytt klick på samma val tar bort det. */
+const pick = (path, opts, cls) => `<div class="chips" role="group">${opts.map(o => { const [label, c] = Array.isArray(o) ? o : [o, cls || '']; return `<button type="button" class="choice ${c}" data-act="pick" data-f="${path}" data-v="${esc(label)}" aria-pressed="${getP(path) === label}">${esc(label)}</button>`; }).join('')}</div>`;
+const multi = (path, opts) => { const arr = getP(path) || []; return `<div class="chips" role="group">${opts.map(o => `<button type="button" class="choice" data-act="multi" data-f="${path}" data-v="${esc(o)}" aria-pressed="${arr.includes(o)}">${esc(o)}</button>`).join('')}</div>`; };
+const headFields = () => `<div class="head-grid">
+  ${field('head.lopnr','Löpnummer',{hint:'Bara siffror, aldrig namn', mode:'numeric', max:6})}
+  ${field('head.klass','Klass',{max:8})}
+  ${field('head.datum','Datum',{type:'date'})}
+  ${field('head.kurator','Kurator')}
+</div>`;
+
+function blockHtml(b){
+  if (b.type === 'mallar') return `<section class="block"><h2>Mallarna att ladda ner</h2><p>Samma frågor och områden som i appen, för den som vill arbeta på papper eller i Excel.</p><ul>${MALLAR.map(([t, u]) => `<li><a href="${esc(u)}" download>${esc(t)}</a></li>`).join('')}</ul></section>`;
+  const cls = b.type ? ` ${b.type}` : '';
+  let body = '';
+  if (b.p) body += `<p>${esc(b.p)}</p>`;
+  if (b.list) body += `<ul>${b.list.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+  if (b.steps) body += `<ol>${b.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>`;
+  if (b.p2) body += `<p style="margin-top:12px">${esc(b.p2)}</p>`;
+  if (b.see) { const ext = /^https?:/.test(b.see[1]); body += `<p class="see">Se också <a href="${esc(b.see[1])}"${ext ? ' target="_blank" rel="noopener"' : ''}>${esc(b.see[0])}</a>: ${esc(b.see[2])}</p>`; }
+  return `<section class="block${cls}">${b.h ? `<h2>${esc(b.h)}</h2>` : ''}${body}</section>`;
+}
+
+/* ==========================================================
+   VYER
+   ========================================================== */
+function viewHome(){
+  return `<a class="backbtn" href="/"><span aria-hidden="true">←</span> Kuratorsguiden</a>
+  <header class="hero">
+    <svg class="hero-circle" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" style="color:var(--n-accent)" stroke-width="1.6"/><circle cx="97" cy="23" r="8" style="fill:var(--n-terracotta-soft)"/></svg>
+    <p class="hero-for">Kuratorsguiden, för dig som är skolkurator</p>
+    <h1 class="n-h n-h1">Trivselsamtal <em>åk 6</em></h1>
+    <p class="lead">Ett kort, tryggt samtal med varje elev i årskurs 6 om skolan, hemmet, kompisar, mående och fritid, med en kort blick mot högstadiet. Här finns stöd före, under och efter samtalet.</p>
+  </header>
+  <div class="cards">
+    <button class="card wide featured" data-act="guide"><span class="badge" aria-hidden="true">Sa</span><span class="t">Samtalsguiden</span><span class="s">Frågorna område för område, med tips. Ha den uppe under samtalet.</span></button>
+    <button class="card" data-tone="sand" data-act="blad"><span class="badge" aria-hidden="true">Do</span><span class="t">Dokumentationsbladet</span><span class="s">Bedöm områdena, skyddsfaktorer och uppföljning. Skriv ut eller spara som PDF.</span></button>
+    <button class="card" data-tone="dimma" data-act="stat"><span class="badge" aria-hidden="true">Sa</span><span class="t">Sammanställningen</span><span class="s">${STAT.rows.length ? `${STAT.rows.length} registrerade samtal på gruppnivå.` : 'Antal samtal, uppföljning och färger per område, på gruppnivå.'}</span></button>
+    <button class="card wide" data-tone="lila" data-act="metod"><span class="badge" aria-hidden="true">Om</span><span class="t">Om metoden</span><span class="s">Syfte, färgerna, sekretess, frågor för utvärderingen och mallarna att ladda ner.</span></button>
+  </div>
+  <section class="note">
+    <p><strong>Om elevuppgifter.</strong> Det du skriver i samtalsguiden och dokumentationsbladet sparas inte, och det försvinner när du stänger sidan. Skriv ut eller spara som PDF det du behöver behålla, och förvara det enligt din huvudmans rutiner. Sammanställningen sparas bara i den här webbläsaren, med löpnummer och aldrig namn eller fritext.</p>
+  </section>`;
+}
+
+function viewGuide(){
+  const i = S.step, n = STEPS;
+  let title, body;
+  if (i === 0) {
+    title = 'Inför samtalet';
+    body = blockHtml(INTRO) + `<div style="margin-top:18px">${headFields()}</div>`;
+  } else if (i <= GUIDE.length) {
+    const sec = GUIDE[i - 1];
+    title = `${i}. ${sec.h}`;
+    body = sec.q.map((q, j) => {
+      const id = `${i - 1}-${j}`;
+      let h = `<div class="q"><p class="q-t">${esc(q.t)}</p>`;
+      if (q.o) h += q.multi ? multi(`g.ans.${id}`, q.o) : pick(`g.ans.${id}`, q.o);
+      return h + '</div>';
+    }).join('')
+    + `<div class="q">${field(`g.notes.${i - 1}`,'Anteckningar',{area:true})}</div>`
+    + `<div style="margin-top:18px">${blockHtml(sec.tip)}</div>`;
+  } else {
+    title = 'Kuratorns korta sammanfattning';
+    body = SUMQ.map(([k, l]) => `<div class="q">${field(`g.sum.${k}`, l, {area:true})}</div>`).join('')
+      + `<div class="q"><p class="q-t">Eventuell uppföljning</p>${multi('g.uppf', SUMUPPF)}</div>`;
+  }
+  return `${backBtn()}
+  ${head('Samtalsguiden', '', 'sage', 'Sa').replace('</header>', `<p class="small" style="margin:0">Steg ${i + 1} av ${n}</p></header>`)}
+  <div class="progress" aria-hidden="true">${Array.from({length:n}, (_, k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('')}</div>
+  <p class="privacy">Skriv inga namn eller personnummer. Inget sparas, och allt försvinner när du stänger sidan.</p>
+  <section class="ref-card"><h2 class="n-h n-h3">${esc(title)}</h2>${body}</section>
+  <div class="actions">
+    ${i > 0 ? `<button class="n-btn n-btn--ghost" data-act="prev">Föregående</button>` : ''}
+    ${i < n - 1 ? `<button class="n-btn" data-act="next">Nästa</button>` : `<button class="n-btn" data-act="gsum">Se hela samtalet</button>`}
+    ${i < n - 1 ? `<button class="textlink" data-act="gsum">Se hela samtalet</button>` : ''}
+  </div>`;
+}
+
+function viewGsum(){
+  const h = D.head;
+  const meta = [['Löpnummer',h.lopnr],['Klass',h.klass],['Datum',h.datum],['Kurator',h.kurator]].filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join('   ');
+  const parts = GUIDE.map((sec, si) => {
+    const lines = [];
+    sec.q.forEach((q, j) => { const a = D.g.ans[`${si}-${j}`]; if (a && (!Array.isArray(a) || a.length)) lines.push(`${q.t}\n→ ${Array.isArray(a) ? a.join(', ') : a}`); });
+    const note = (D.g.notes[si] || '').trim(); if (note) lines.push(note);
+    return lines.length ? `<h3>${si + 1}. ${esc(sec.h)}</h3><p>${esc(lines.join('\n\n'))}</p>` : '';
+  }).join('');
+  const sum = SUMQ.map(([k, l]) => { const v = (D.g.sum[k] || '').trim(); return v ? `<h3>${esc(l)}</h3><p>${esc(v)}</p>` : ''; }).join('')
+    + (D.g.uppf.length ? `<h3>Eventuell uppföljning</h3><p>${esc(D.g.uppf.join(', '))}</p>` : '');
+  return `${backBtn()}
+  ${head('Hela samtalet', 'Det du har markerat och skrivit under samtalet. Skriv ut eller spara som PDF om du vill behålla det, och gå sedan vidare till dokumentationsbladet.', 'sage', 'Sa')}
+  <section class="ref-card summary" style="margin-top:18px">
+    <h2 class="n-h n-h3">Trivselsamtal åk 6</h2>${meta ? `<p>${esc(meta)}</p>` : ''}
+    ${parts || sum ? parts + sum : '<p>Du har inte markerat eller skrivit något ännu.</p>'}
+  </section>
+  <div class="actions"><button class="n-btn" data-act="print">Skriv ut eller spara som PDF</button><button class="n-btn n-btn--ghost" data-act="blad">Till dokumentationsbladet</button></div>`;
+}
+
+function viewBlad(){
+  const b = D.b;
+  return `${backBtn()}
+  ${head('Dokumentationsbladet', 'Kuratorns dokumentation och bedömning efter samtalet.', 'sand', 'Do')}
+  <div class="blocks">
+    <section class="block"><h2>Trivselsamtal åk 6</h2>${headFields()}</section>
+    <section class="block"><h2>1. Områdesbedömning</h2>
+      ${OMR.map((o, i) => `<div class="omr"><span>${esc(o)}</span>${pick(`b.omr.${i}`, COLORS.map(([l, c]) => [l, c]))}</div>`).join('')}
+      <p class="legend">Grön = fungerar överlag bra. Gul = något behöver uppmärksammas eller följas upp. Röd = tydlig oro eller stödbehov. Färgen är ett arbetsstöd, inte en diagnos.</p>
+    </section>
+    <section class="block"><h2>2. Skyddsfaktorer och resurser</h2>
+      ${multi('b.skydd', SKYDD)}
+      ${b.skydd.includes('Annat') ? `<div style="margin-bottom:12px">${field('b.skyddAnnat','Annat')}</div>` : ''}
+      ${field('b.skyddKomm','Kort kommentar',{area:true})}
+    </section>
+    <section class="block"><h2>3. Uppmärksamhetsområden</h2>
+      ${multi('b.uppm', UPPM)}
+      ${b.uppm.includes('Annat') ? `<div style="margin-bottom:12px">${field('b.uppmAnnat','Annat')}</div>` : ''}
+      ${field('b.uppmKomm','Kort kommentar',{area:true})}
+    </section>
+    <section class="block"><h2>4. Uppföljning och åtgärd</h2>
+      ${multi('b.uppf', UPPF)}
+      <div style="display:grid;gap:12px">
+        ${field('b.plan','Vad behöver eleven, och vad är planerat?',{area:true})}
+        <div style="max-width:240px">${field('b.fdatum','Datum för uppföljning',{type:'date'})}</div>
+      </div>
+    </section>
+    <section class="block"><h2>5. Sammanfattande professionell bedömning</h2>
+      ${pick('b.total', [['Grön – ingen aktuell oro','g'],['Gul – behov av uppmärksamhet','y'],['Röd – behov av vidare insats','r']])}
+      ${field('b.sammanf','Sammanfattning',{area:true, rows:4})}
+    </section>
+  </div>
+  <div class="actions">
+    <button class="n-btn" data-act="print">Skriv ut eller spara som PDF</button>
+    <button class="n-btn n-btn--ghost" data-act="add">Lägg till i sammanställningen</button>
+    <button class="textlink" data-act="new">Nytt samtal</button>
+  </div>
+  <p id="addmsg" role="status" style="margin:12px 0 0"></p>
+  <p class="small no-print" style="margin-top:12px">Till sammanställningen förs bara löpnummer, klass, datum, färgerna och det du har kryssat i. Kommentarer och sammanfattning följer aldrig med.</p>`;
+}
+
+/* ---------- Sammanställningen ---------- */
+const pct = (a, b) => b ? Math.round(a / b * 100) + ' %' : '–';
+function uppfFor(r){
+  const u = r.uppf || [];
+  if (!u.length) return ['', ''];
+  const typer = u.filter(x => x !== 'Ingen').map(x => x === 'Vårdnadshavare enligt rutiner' ? 'Vårdnadshavare' : x);
+  return typer.length ? ['Ja', typer.join(', ')] : ['Nej', 'Ingen'];
+}
+function viewStat(){
+  const rows = STAT.rows, n = rows.length;
+  const medUppf = rows.filter(r => uppfFor(r)[0] === 'Ja').length;
+  const hog = rows.filter(r => r.omr[10]);
+  const hogOro = hog.filter(r => r.omr[10] === 'Gul' || r.omr[10] === 'Röd').length;
+  const mg = parseInt(STAT.malgrupp, 10);
+  const tabell = OMR.map((o, i) => {
+    const c = l => rows.filter(r => r.omr[i] === l).length;
+    const g = c('Grön'), y = c('Gul'), r = c('Röd');
+    return `<tr><td>${esc(o)}</td><td class="n">${g}</td><td class="n">${y}</td><td class="n">${r}</td><td class="n">${n - g - y - r}</td></tr>`;
+  }).join('');
+  const count = list => { const m = {}; rows.forEach(r => (r[list] || []).forEach(x => m[x] = (m[x] || 0) + 1)); return Object.entries(m).sort((a, b) => b[1] - a[1]); };
+  const lista = (rubrik, arr) => arr.length ? `<h3 class="n-h n-h3" style="margin-top:18px">${rubrik}</h3><div class="tblwrap"><table class="tbl"><tbody>${arr.map(([k, v]) => `<tr><td>${esc(k)}</td><td class="n">${v}</td></tr>`).join('')}</tbody></table></div>` : '';
+  const sorted = rows.slice().sort((a, b) => (+a.lopnr) - (+b.lopnr));
+  return `${backBtn()}
+  ${head('Sammanställningen', 'Samma siffror som i Excel-filens dashboard. Uppgifterna sparas bara i den här webbläsaren.', 'dimma', 'Sa')}
+  <div class="blocks">
+    <section class="block"><h2>Översikt</h2>
+      <div class="kpis">
+        <div class="kpi"><b>${n}</b><span>Registrerade samtal</span></div>
+        <div class="kpi"><b>${medUppf}</b><span>Med uppföljning (${pct(medUppf, n)})</span></div>
+        <div class="kpi"><b>${pct(hogOro, hog.length)}</b><span>Någon oro inför högstadiet (gul eller röd)</span></div>
+        <div class="kpi"><b>${mg > 0 ? pct(n, mg) : '–'}</b><span>Genomförandegrad</span></div>
+      </div>
+      <div style="max-width:260px;margin-top:16px"><label class="lbl" for="malgrupp">Antal elever i målgruppen</label><input type="number" id="malgrupp" min="0" inputmode="numeric" value="${esc(STAT.malgrupp)}"></div>
+    </section>
+    <section class="block"><h2>Områden</h2>
+      <div class="tblwrap"><table class="tbl"><thead><tr><th>Område</th><th class="n">Grön</th><th class="n">Gul</th><th class="n">Röd</th><th class="n">Ej registrerat</th></tr></thead><tbody>${tabell}</tbody></table></div>
+      ${lista('Skyddsfaktorer', count('skydd'))}
+      ${lista('Uppmärksamhetsområden', count('uppm'))}
+      <p class="legend">Redovisa siffrorna på gruppnivå. Där bara ett fåtal elever ingår kan en enskild elev pekas ut.</p>
+    </section>
+    <section class="block no-print"><h2>Registrerade samtal</h2>
+      ${n ? `<div class="tblwrap"><table class="tbl"><thead><tr><th>Löpnummer</th><th>Klass</th><th>Datum</th><th></th></tr></thead><tbody>${sorted.map(r => `<tr><td>${esc(r.lopnr)}</td><td>${esc(r.klass)}</td><td>${esc(r.datum)}</td><td><button class="textlink" data-act="del" data-v="${esc(r.lopnr)}">Ta bort</button></td></tr>`).join('')}</tbody></table></div>` : '<p>Inga samtal är registrerade ännu. Fyll i ett dokumentationsblad och välj Lägg till i sammanställningen.</p>'}
+    </section>
+  </div>
+  <div class="actions">
+    <button class="n-btn" data-act="csv"${n ? '' : ' disabled'}>Exportera till Excel</button>
+    <button class="n-btn n-btn--ghost" data-act="print">Skriv ut</button>
+    <button class="textlink" data-act="clear"${n ? '' : ' disabled'}>Radera allt</button>
+  </div>
+  <p class="small" style="margin-top:12px">Exporten har samma kolumner som fliken Registrering i Excel-filen. Kopiera raderna och klistra in dem där. Radera allt när arbetet är klart och sparat på det sätt huvudmannen bestämmer.</p>`;
+}
+
+function viewMetod(){
+  return `${backBtn()}
+  ${head('Om metoden', 'Trivselsamtal åk 6: syfte, arbetssätt och utvärdering.', 'lila', 'Om')}
+  <div class="blocks">${METOD.map(blockHtml).join('')}</div>`;
+}
+
+function render(){
+  const v = { home:viewHome, guide:viewGuide, gsum:viewGsum, blad:viewBlad, stat:viewStat, metod:viewMetod }[S.view] || viewHome;
+  $app.innerHTML = v();
+}
+
+/* ==========================================================
+   EXPORT
+   ========================================================== */
+const COLS = ['Löpnummer','Klass','Datum', ...OMR, 'Skyddsfaktor(er)','Uppmärksamhetsområde(n)','Uppföljning','Uppföljningstyp','Kort kommentar'];
+function exportCsv(){
+  const cell = v => { const s = String(v == null ? '' : v); return /[;"\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s; };
+  const lines = [COLS.map(cell).join(';')];
+  STAT.rows.slice().sort((a, b) => (+a.lopnr) - (+b.lopnr)).forEach(r => {
+    const [u, typ] = uppfFor(r);
+    lines.push([r.lopnr, r.klass, r.datum, ...OMR.map((_, i) => r.omr[i] || ''), (r.skydd || []).join(', '), (r.uppm || []).join(', '), u, typ, ''].map(cell).join(';'));
+  });
+  const blob = new Blob(['\ufeff' + lines.join('\r\n')], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'trivselsamtal-registrering.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function addToStat(){
+  const msg = document.getElementById('addmsg');
+  const say = (t, ok) => { msg.textContent = t; msg.className = ok ? 'saved' : 'err'; };
+  const lopnr = (D.head.lopnr || '').trim(), datum = (D.head.datum || '').trim();
+  if (!/^\d{1,6}$/.test(lopnr)) return say('Fyll i ett löpnummer med bara siffror.', false);
+  if (!datum) return say('Fyll i datum för samtalet.', false);
+  const row = {
+    lopnr, klass:(D.head.klass || '').trim().slice(0, 8), datum,
+    omr:Object.fromEntries(OMR.map((_, i) => [i, D.b.omr[i] || ''])),
+    skydd:D.b.skydd.slice(), uppm:D.b.uppm.slice(), uppf:D.b.uppf.slice()
+  };
+  const i = STAT.rows.findIndex(r => r.lopnr === lopnr);
+  if (i >= 0) { if (!confirm(`Löpnummer ${lopnr} finns redan. Vill du ersätta det?`)) return; STAT.rows[i] = row; }
+  else STAT.rows.push(row);
+  saveStat() ? say(`Löpnummer ${lopnr} är tillagt. Välj Nytt samtal när du är klar med bladet.`, true) : say('Det gick inte att spara i den här webbläsaren.', false);
+}
+
+/* ==========================================================
+   HÄNDELSER
+   ========================================================== */
+$app.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]');
+  if (!b || b.disabled) return;
+  const v = b.dataset.v, f = b.dataset.f;
+  switch (b.dataset.act) {
+    case 'back': goBack(); break;
+    case 'guide': go('guide', {step:0}); break;
+    case 'next': go('guide', {step:S.step + 1}); break;
+    case 'prev': go('guide', {step:S.step - 1}); break;
+    case 'gsum': go('gsum'); break;
+    case 'blad': go('blad'); break;
+    case 'stat': go('stat'); break;
+    case 'metod': go('metod'); break;
+    case 'print': window.print(); break;
+    case 'pick': setP(f, getP(f) === v ? '' : v); render(); break;
+    case 'multi': { const arr = (getP(f) || []).slice(), i = arr.indexOf(v); if (i >= 0) arr.splice(i, 1); else arr.push(v); setP(f, arr); render(); break; }
+    case 'add': addToStat(); break;
+    case 'new': if (!hasContent() || confirm('Vill du tömma samtalsguiden och dokumentationsbladet inför ett nytt samtal? Skriv ut först om du behöver behålla något.')) { D = fresh(); go('home'); } break;
+    case 'del': if (confirm(`Vill du ta bort löpnummer ${v} från sammanställningen?`)) { STAT.rows = STAT.rows.filter(r => r.lopnr !== v); saveStat(); render(); } break;
+    case 'csv': exportCsv(); break;
+    case 'clear': if (confirm('Vill du radera hela sammanställningen i den här webbläsaren? Exportera först om du behöver behålla den.')) { STAT = { malgrupp:'', rows:[] }; try { localStorage.removeItem(STORE); } catch(err) {} render(); } break;
+  }
+});
+$app.addEventListener('input', e => {
+  const f = e.target.dataset.f;
+  if (f) setP(f, e.target.value);
+});
+$app.addEventListener('change', e => {
+  if (e.target.id === 'malgrupp') { STAT.malgrupp = e.target.value.replace(/\D/g,''); saveStat(); render(); }
+});
+/* Varna innan sidan stängs om något är ifyllt, eftersom det inte sparas */
+window.addEventListener('beforeunload', e => { if (hasContent()) { e.preventDefault(); e.returnValue = ''; } });
+
+/* ---------- Nattläge (samma som på Norvay) ---------- */
+const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+const SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
+const themeBtn = document.getElementById('themeBtn');
+/* Sparar valet i kakan "norvay-tema" för alla Norvays verktyg (ett år). Bara ordet light eller dark. */
+function sparaTema(t){
+  const doman = /(^|\.)norvayapp\.se$/.test(location.hostname) ? '; domain=.norvayapp.se' : '';
+  const saker = location.protocol === 'https:' ? '; secure' : '';
+  document.cookie = 'norvay-tema=' + t + '; path=/; max-age=31536000; samesite=lax' + saker + doman;
+}
+function paintThemeBtn(){
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  themeBtn.innerHTML = dark ? SUN : MOON;
+  themeBtn.setAttribute('aria-label', dark ? 'Byt till ljust läge' : 'Byt till mörkt läge');
+  themeBtn.setAttribute('aria-pressed', String(dark));
+}
+themeBtn.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  sparaTema(next);
+  paintThemeBtn();
+});
+paintThemeBtn();
+
+HIST[0] = snap();
+try { history.replaceState({ts:0}, ''); } catch(e) {}
+render();
+</script>
+</body>
+</html>
