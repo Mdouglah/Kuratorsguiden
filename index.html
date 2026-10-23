@@ -108,6 +108,7 @@ a{color:inherit}
 .card.featured{background:var(--n-accent);color:var(--n-on-accent)}
 .card.featured .s{color:var(--n-on-accent);opacity:.9}
 .card.featured .badge{color:var(--n-accent)}
+a.card{text-decoration:none}
 .note{background:var(--n-surface);border:1px solid var(--n-line);border-radius:var(--n-radius);padding:18px 22px;margin:0 0 18px;font-size:.95rem}
 .note p{margin:0 0 6px}
 .note p:last-child{margin:0}
@@ -187,7 +188,7 @@ a{color:inherit}
 <div class="wrap">
   <main id="app"></main>
   <footer class="n-footer">
-    <p>Inget av det du skriver i Tänk igenom ett ärende sparas. Det försvinner när du stänger sidan. Min kommun sparas bara i den här webbläsaren. Ingen AI används, och inget skickas till oss.</p>
+    <p>Inget av det du skriver i Tänk igenom ett ärende sparas. Det försvinner när du stänger sidan. Min kommun och sammanställningen i Trivselsamtal åk 6 sparas bara i den här webbläsaren. Ingen AI används, och inget skickas till oss.</p>
     <p>Kuratorsguiden är ett stöd för reflektion och ersätter inte handledning, juridisk rådgivning eller din huvudmans rutiner. Lagtexterna är kontrollerade i oktober 2026.</p>
     <p>Ett verktyg från <a href="https://norvayapp.se">Norvay</a> · <a href="https://norvayapp.se/integritet">Integritet</a> · <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>. Skicka aldrig elevuppgifter via mejl.</p>
   </footer>
@@ -461,6 +462,7 @@ function viewHome(){
     <button class="card wide featured" data-act="ref"><span class="badge" aria-hidden="true">Tä</span><span class="t">Tänk igenom ett ärende</span><span class="s">Frågor steg för steg som hjälper dig att sortera ett svårt ärende. Inget sparas.</span></button>
     ${SECTIONS.map(s => `<button class="card" data-tone="${s.tone}" data-act="sec" data-v="${s.id}"><span class="badge" aria-hidden="true">${s.badge}</span><span class="t">${esc(s.title)}</span><span class="s">${esc(s.lead)}</span></button>`).join('')}
     <button class="card" data-act="kommun"><span class="badge" aria-hidden="true">Mk</span><span class="t">Min kommun</span><span class="s">${hasKommun() ? 'Dina kontaktuppgifter för orosanmälan.' : 'Fyll i din kommuns kontaktuppgifter för orosanmälan.'}</span></button>
+    <a class="card wide" data-tone="sand" href="/trivselsamtal.html"><span class="badge" aria-hidden="true">Ts</span><span class="t">Trivselsamtal åk 6</span><span class="s">Samtalsguide, dokumentationsblad och sammanställning för samtal med elever i årskurs 6.</span></a>
   </div>
   <section class="note">
     <p><strong>Om innehållet.</strong> Kuratorsguiden ger en överblick och ersätter inte handledning, juridisk rådgivning eller din huvudmans rutiner. Lagtexterna är kontrollerade i oktober 2026.</p>
@@ -626,6 +628,10 @@ themeBtn.addEventListener('click', () => {
   paintThemeBtn();
 });
 paintThemeBtn();
+
+/* Länk direkt till ett avsnitt, till exempel /#oros. Används av Trivselsamtal åk 6. */
+const startHash = decodeURIComponent(location.hash.slice(1));
+if (sec(startHash)) { S.view = 'sec'; S.sec = startHash; }
 
 HIST[0] = snap();
 try { history.replaceState({kg:0}, ''); } catch(e) {}
