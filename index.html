@@ -172,6 +172,9 @@ a.card{text-decoration:none}
 .n-footer{border-top:1px solid var(--n-line);padding:28px 0 44px;margin-top:56px;font-size:.92rem;color:var(--n-ink-soft)}
 .n-footer p{margin:0 0 .8em;max-width:70ch}
 .n-footer a{color:var(--n-accent)}
+/* Länken "Stöd Norvay" i sidfoten: samma färg som sidfotens länkar, synlig fokusram, aldrig på papper */
+.norvay-stod:focus-visible{outline:3px solid currentColor;outline-offset:3px;border-radius:4px}
+@media print{.norvay-stod{display:none!important}}
 
 @media (prefers-reduced-motion:reduce){ .n-body *{transition:none!important;animation:none!important} }
 @media print{
@@ -190,7 +193,7 @@ a.card{text-decoration:none}
   <footer class="n-footer">
     <p>Inget av det du skriver i Tänk igenom ett ärende sparas. Det försvinner när du stänger sidan. Min kommun och sammanställningen i Trivselsamtal åk 6 sparas bara i den här webbläsaren. Ingen AI används, och inget skickas till oss.</p>
     <p>Kuratorsguiden är ett stöd för reflektion och ersätter inte handledning, juridisk rådgivning eller din huvudmans rutiner. Lagtexterna är kontrollerade i oktober 2026.</p>
-    <p>Ett verktyg från <a href="https://norvayapp.se">Norvay</a> · <a href="https://norvayapp.se/integritet">Integritet</a> · <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>. Skicka aldrig elevuppgifter via mejl.</p>
+    <p>Ett verktyg från <a href="https://norvayapp.se">Norvay</a> · <a href="https://norvayapp.se/integritet">Integritet</a> · <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a> · <a class="norvay-stod" href="https://norvayapp.se/#stod" target="_blank" rel="noopener" aria-label="Stöd Norvay (öppnas i ny flik)">Stöd Norvay</a>. Skicka aldrig elevuppgifter via mejl.</p>
   </footer>
 </div>
 
