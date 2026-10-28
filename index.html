@@ -219,11 +219,17 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
    see:[namn, länk, beskrivning]   länk till en annan Norvay-app
    ========================================================== */
 const SECTIONS = [
-  { id:'uppdrag', title:'Kuratorns uppdrag', badge:'Up', tone:'sage',
+  { id:'uppdrag', title:'Kuratorns uppdrag', badge:'Up', tone:'sage', handbok:true,
     lead:'Vad som ingår i uppdraget som skolkurator, och vad som inte gör det. Bra att ha när förväntningarna på dig blir otydliga.',
     blocks:[
       {h:'Elevhälsan enligt skollagen', p:'Enligt 2 kap. 25 § skollagen ska elevhälsan omfatta medicinska, psykologiska, psykosociala och specialpedagogiska insatser. Eleverna ska ha tillgång till skolläkare, skolsköterska, psykolog och kurator. Elevhälsan ska främst arbeta förebyggande och hälsofrämjande och stödja elevernas utveckling mot utbildningens mål.'},
       {h:'Kuratorns perspektiv', p:'Kuratorn står för det psykosociala perspektivet: hur elevens situation i skolan, hemma och bland kamrater påverkar mående och lärande.'},
+      {h:'Socialt arbete i skolans miljö', p:'Kuratorns grund är socialt arbete, men arbetsplatsen är skolan, där elevernas lärande och måluppfyllelse står i centrum. Din uppgift är att bidra till att psykosociala hinder för lärande undanröjs. Det betyder inte att du ska lösa alla problem i en elevs liv. Var gränsen går avgör du med din professionella bedömning, gärna tillsammans med rektor och elevhälsoteamet.'},
+      {h:'Arbetet i mellanrummen', p:'Kuratorn arbetar ofta mellan olika parter: mellan elev och lärare, mellan skola och hem, och mellan familjen och samhällets andra aktörer. Där kan du se helheten, översätta mellan olika perspektiv och få till samverkan. Samverkan är ofta det som gör störst skillnad för eleven.'},
+      {h:'Tre utgångspunkter', list:[
+        'Barnets rättigheter. Barnkonventionen är svensk lag. Fråga dig om elevens rättigheter tillgodoses, och agera när de inte gör det.',
+        'Skolans uppdrag. Elevhälsan finns för att eleverna ska kunna lära och utvecklas. Det psykosociala arbetet är en del av det uppdraget.',
+        'Kuratorns roll. Du bidrar med det psykosociala perspektivet, som ingen annan i elevhälsan har på samma sätt.']},
       {h:'Det här ingår ofta', list:[
         'Stödsamtal och krissamtal med elever, enskilt eller i grupp.',
         'Psykosociala kartläggningar, till exempel vid hög frånvaro eller inför ett åtgärdsprogram.',
@@ -240,7 +246,8 @@ const SECTIONS = [
       {h:'Läs mer', list:[
         'Skollagen, 2 kap. 25 § om elevhälsan.',
         'Vägledning för elevhälsan från Skolverket och Socialstyrelsen.',
-        'Kompetensbeskrivningen för skolkuratorer från Akademikerförbundet SSR och Föreningen Sveriges Skolkuratorer.']}
+        'Kompetensbeskrivningen för skolkuratorer från Akademikerförbundet SSR och Sveriges Skolkuratorers Förening.',
+        'Nationell handbok för skolkuratorer från Sveriges Skolkuratorers Förening (2026).']}
     ]},
   { id:'oros', title:'Orosanmälan', badge:'Or', tone:'blush',
     lead:'När och hur du anmäler oro för ett barn till socialtjänsten, och vad som händer sedan.',
@@ -362,13 +369,14 @@ const SECTIONS = [
         'Förvara anteckningarna så att obehöriga inte kommer åt dem.']},
       {type:'tip', h:'Osäker?', p:'Rådgör med huvudmannens jurist eller dataskyddsombud när du är osäker på vad som får lämnas ut. Du kan också ställa en fråga till socialtjänsten utan att nämna elevens namn.'}
     ]},
-  { id:'ensam', title:'Att jobba ensam', badge:'En', tone:'lila',
+  { id:'ensam', title:'Att jobba ensam', badge:'En', tone:'lila', handbok:true,
     lead:'Många kuratorer är ensamma i sin yrkesroll på skolan. Här finns stöd för att orka och göra ett bra jobb.',
     blocks:[
+      {type:'tip', h:'Du ska inte stå ensam i processerna', p:'Nationell handbok för skolkuratorer lyfter att kuratorn inte ska bära svåra processer ensam, och att skolledningen har ansvar för att leda och fördela arbetet. Ta upp med rektor vem som gör vad, till exempel vid orosanmälan, utredningar av kränkningar och hög frånvaro. Be gärna om att fördelningen skrivs ner.'},
       {h:'Handledning', p:'Arbetsgivaren ansvarar för arbetsmiljön, även den psykosociala. Att regelbundet få prata om svåra ärenden med en erfaren handledare är en viktig del av ett hållbart kuratorsarbete. Be rektor om extern handledning om du inte har det. Många kommuner erbjuder gemensam handledning för skolkuratorer.'},
       {h:'Hitta kollegor', list:[
         'Ta kontakt med kuratorer på andra skolor i kommunen och föreslå ett nätverk som träffas några gånger per termin.',
-        'Föreningen Sveriges Skolkuratorer och Akademikerförbundet SSR samlar skolkuratorer i hela landet.',
+        'Sveriges Skolkuratorers Förening och Akademikerförbundet SSR samlar skolkuratorer i hela landet.',
         'Använd Tänk igenom ett ärende här i appen när du behöver sortera dina tankar.']},
       {h:'Gränser och prioritering', list:[
         'Var tydlig med vad du hinner. Allt kan inte vara akut.',
@@ -398,9 +406,11 @@ const REF = [
   {h:'Finns det oro för att eleven far illa?', yesno:'illa', q:['Har du kännedom om eller misstanke om att eleven far illa, hemma eller på grund av sitt eget beteende?'],
     yes:{type:'warn', h:'Gör en orosanmälan', p:'Misstanke räcker, och du ska inte utreda själv. Anmäl genast enligt din kommuns rutin.', link:'oros'},
     no:{type:'tip', h:'Var uppmärksam', p:'Fundera på om det kan finnas mer som du inte vet ännu. Blir du orolig senare ska du anmäla då.'}},
-  {h:'Vad är min roll här?', q:['Vad är kuratorns uppgift i det här ärendet, och vad är någon annans?','Förväntas jag göra något som egentligen ligger på rektor, mentor, vården eller socialtjänsten?','Vad kan jag göra själv, och vad behöver jag hjälp med?'], note:true},
+  {h:'Elevens hela situation', handbok:true, q:['Hur har eleven det hemma, och vilka vuxna finns runt eleven?','Hur ser relationerna till kamrater och vuxna i skolan ut?','Finns det normer eller förväntningar, i skolan eller hemma, som påverkar eleven?','Hur ser eleven på sig själv?','Har eleven blivit utsatt för kränkningar?','Är kraven i skolan rimliga för eleven just nu?'], note:true},
+  {h:'Vad är min roll här?', q:['Vilka hinder för lärande handlar det om, och vilka av dem är mitt uppdrag?','Vad är kuratorns uppgift i det här ärendet, och vad är någon annans?','Förväntas jag göra något som egentligen ligger på rektor, mentor, vården eller socialtjänsten?','Vad kan jag göra själv, och vad behöver jag hjälp med?'], note:true},
   {h:'Vad vill eleven?', q:['Vad säger eleven själv att den behöver?','Vad har redan hjälpt, och vad har inte hjälpt?','Har eleven fått säga vad den tycker om nästa steg?'], note:true},
-  {h:'Vem mer behöver vara med?', chips:['Rektor','Mentor','Skolsköterska','Psykolog','Specialpedagog','Elevhälsoteamet','Vårdnadshavare','Socialtjänsten','BUP eller vården'], q:['Har jag samtycke att prata med dem det gäller?'], note:true},
+  {h:'Barnets rättigheter', handbok:true, q:['Tillgodoses elevens rättigheter i det här ärendet, till exempel rätten till skydd, till utbildning och att få säga sin mening?','Om inte: vad behöver göras, och vem behöver jag lyfta det med?'], note:true},
+  {h:'Vem mer behöver vara med?', chips:['Rektor','Mentor','Skolsköterska','Psykolog','Specialpedagog','Elevhälsoteamet','Vårdnadshavare','Socialtjänsten','BUP eller vården'], q:['Har jag samtycke att prata med dem det gäller?','Bär jag det här ensam, eller är ansvaret fördelat med rektor och elevhälsan?'], note:true},
   {h:'Sekretess och dokumentation', checks:['Jag vet vilka uppgifter jag får dela, och med vem.','Jag har samtycke där det behövs.','Jag har dokumenterat det viktigaste enligt skolans rutin.']},
   {h:'Nästa steg', q:['Vilka ett till tre steg ska jag ta nu?','När följer jag upp, och med vem?'], note:true},
   {h:'Hur mår jag?', q:['Hur påverkar det här ärendet mig?','Behöver jag prata med någon, till exempel en handledare?'], note:true}
@@ -461,6 +471,9 @@ const sec = id => SECTIONS.find(s => s.id === id);
 /* ==========================================================
    VYER
    ========================================================== */
+/* Källrad för innehåll som bygger på Nationell handbok för skolkuratorer */
+const handbokLine = () => `<p class="small" style="margin-top:18px">I linje med Nationell handbok för skolkuratorer (Sveriges Skolkuratorers Förening, 2026). <a href="https://skolkurator.nu/handbok" target="_blank" rel="noopener">Om handboken</a></p>`;
+
 const backBtn = () => `<button class="backbtn" data-act="back" aria-label="Tillbaka till föregående sida"><span aria-hidden="true">←</span> Tillbaka</button>`;
 
 function viewHome(){
@@ -477,6 +490,9 @@ function viewHome(){
     <a class="card wide" data-tone="sand" href="/trivselsamtal.html"><span class="badge" aria-hidden="true">Ts</span><span class="t">Trivselsamtal åk 6</span><span class="s">Samtalsguide, dokumentationsblad och sammanställning för samtal med elever i årskurs 6.</span></a>
   </div>
   <section class="note">
+    <p><strong>I linje med Nationell handbok för skolkuratorer.</strong> Delar av Kuratorsguiden bygger på rekommendationerna i Nationell handbok för skolkuratorer, som Sveriges Skolkuratorers Förening gav ut 2026 med stöd av Tim Bergling Foundation. Kuratorsguiden är inte framtagen av föreningen. <a href="https://skolkurator.nu/handbok" target="_blank" rel="noopener">Läs mer om handboken</a></p>
+  </section>
+  <section class="note">
     <p><strong>Om innehållet.</strong> Kuratorsguiden ger en överblick och ersätter inte handledning, juridisk rådgivning eller din huvudmans rutiner. Lagtexterna är kontrollerade i oktober 2026.</p>
     <p class="small" style="margin-top:8px">Källor:</p>
     <ul class="sources">
@@ -484,6 +500,7 @@ function viewHome(){
       <li>Socialtjänstlagen (2025:400), 19 kap. 1 § om anmälningsskyldighet.</li>
       <li>Offentlighets- och sekretesslagen (2009:400), 10 kap. 28 §, 12 kap. 3 § och 23 kap. 2 §.</li>
       <li>Föräldrabalken, 6 kap. 20 c § om uppgiftsskyldighet i vårdnadsutredningar.</li>
+      <li>Nationell handbok för skolkuratorer, Sveriges Skolkuratorers Förening (2026).</li>
     </ul>
   </section>`;
 }
@@ -507,7 +524,8 @@ function viewSec(){
   return `${backBtn()}
   <header class="sec-head" data-tone="${s.tone}"><span class="badge" aria-hidden="true">${s.badge}</span><h1 class="n-h n-h2">${esc(s.title)}</h1><p class="lead" style="margin:0">${esc(s.lead)}</p></header>
   ${heads.length > 4 ? `<nav class="toc" aria-label="På den här sidan">${heads.map(([h, i]) => `<button data-act="jump" data-v="${i}">${esc(h)}</button>`).join('')}</nav>` : ''}
-  <div class="blocks">${s.blocks.map(blockHtml).join('')}</div>`;
+  <div class="blocks">${s.blocks.map(blockHtml).join('')}</div>
+  ${s.handbok ? handbokLine() : ''}`;
 }
 
 function viewKommun(){
@@ -543,7 +561,7 @@ function viewRef(){
   <div class="ref">
     <div class="progress" aria-hidden="true">${REF.map((_, i) => `<i class="${i <= S.step ? 'on' : ''}"></i>`).join('')}</div>
     <p class="privacy">Skriv inga namn, personnummer eller annat som kan peka ut en elev. Inget sparas, och allt försvinner när du stänger sidan.</p>
-    <section class="ref-card"><h2 class="n-h n-h3">${esc(st.h)}</h2>${body}</section>
+    <section class="ref-card"><h2 class="n-h n-h3">${esc(st.h)}</h2>${body}${st.handbok ? handbokLine() : ''}</section>
     <div class="actions">
       ${S.step > 0 ? `<button class="n-btn n-btn--ghost" data-act="prev">Föregående steg</button>` : ''}
       ${S.step < n - 1 ? `<button class="n-btn" data-act="next">Nästa steg</button>` : `<button class="n-btn" data-act="sum">Se sammanfattningen</button>`}
