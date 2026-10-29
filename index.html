@@ -200,7 +200,7 @@ a.card{text-decoration:none}
 <div class="wrap">
   <main id="app"></main>
   <footer class="n-footer">
-    <p>Inget av det du skriver i Tänk igenom ett ärende sparas. Det försvinner när du stänger sidan. Min kommun och sammanställningen i Trivselsamtal åk 6 sparas bara i den här webbläsaren. Ingen AI används, och inget skickas till oss.</p>
+    <p>Inget av det du skriver i Tänk igenom ett ärende sparas. Det försvinner när du stänger sidan. Min kommun och sammanställningen i Trivselsamtal åk 6 sparas bara i den här webbläsaren. Ingen AI används, och det du skriver skickas aldrig till oss. Vi räknar bara anonyma besök, utan kakor.</p>
     <p>Kuratorsguiden är ett stöd för reflektion och ersätter inte handledning, juridisk rådgivning eller din huvudmans rutiner. Lagtexterna är kontrollerade i oktober 2026.</p>
     <p>Ett verktyg från <a href="https://norvayapp.se">Norvay</a> · <a href="https://norvayapp.se/integritet">Integritet</a> · <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>. Skicka aldrig elevuppgifter via mejl.</p>
   </footer>
@@ -279,7 +279,7 @@ const SECTIONS = [
         'Berättar barnet om våld eller övergrepp och vågar inte gå hem: ring socialtjänsten direkt, innan skoldagen slutar.',
         'Efter kontorstid: ring socialjouren.',
         'Vid akut fara: ring 112.',
-        'Låt inte barnet gå hem innan du har pratat med socialtjänsten, om du är orolig för vad som väntar där.']},
+        'Är du orolig för vad som väntar hemma: kontakta socialtjänsten innan skoldagen slutar, så att de kan göra en skyddsbedömning. Det är socialtjänsten som beslutar om barnets skydd, inte skolan.']},
       {h:'Ska vårdnadshavarna få veta?', p:'Du får informera vårdnadshavarna om anmälan, och ofta är det bra för samarbetet. Men gäller oron våld, sexuella övergrepp eller hedersrelaterat våld från en vårdnadshavare ska du inte informera dem. Rådgör då med socialtjänsten först, så att barnet inte utsätts för fara.'},
       {h:'Vad händer sedan?', list:[
         'Socialtjänsten bedömer om barnet behöver skydd direkt och om en utredning ska inledas.',
@@ -289,7 +289,7 @@ const SECTIONS = [
         'Blir du orolig igen ska du anmäla igen. Varje ny oro ska anmälas.']},
       {type:'tip', h:'Bra att veta om vårdnadstvister', p:'Sedan den 15 januari 2026 är skolans personal skyldig att lämna uppgifter när socialtjänsten utreder vårdnad, boende eller umgänge. Kuratorer inom elevhälsan är undantagna från den skyldigheten (6 kap. 20 c § föräldrabalken). Skyldigheten att göra en orosanmälan när ett barn far illa gäller däremot som vanligt.'}
     ]},
-  { id:'samtal', title:'Samtal', badge:'Sa', tone:'sand',
+  { id:'samtal', title:'Samtal', badge:'Sa', tone:'sand', handbok:true,
     lead:'Korta guider för olika sorters samtal: vad du kan tänka på före, under och efter.',
     blocks:[
       {h:'Inför alla samtal', list:[
@@ -297,6 +297,13 @@ const SECTIONS = [
         'Berätta om tystnadsplikten och dess gränser, till exempel: ”Det du säger stannar här, utom om jag blir orolig för att du far illa. Då måste jag ta hjälp av andra, och då berättar jag det för dig.”',
         'Lova aldrig att hålla något hemligt innan du vet vad det gäller.',
         'Avsluta med att sammanfatta och komma överens om nästa steg.']},
+      {h:'Samtalsrummet', p:'Rummet påverkar hur trygg eleven känner sig. Ett genomtänkt rum kan minska maktobalansen mellan dig som vuxen och eleven.', list:[
+        'Välj ett rum där ni inte kan höras eller ses utifrån, och där ni inte blir störda.',
+        'Sitt i samma höjd, gärna lite snett mot varandra i stället för mitt emot varandra över ett skrivbord.',
+        'Låt eleven välja plats, till exempel nära dörren, så att det känns lätt att gå.',
+        'Ha vatten, näsdukar och något att hålla i eller rita med.',
+        'Se över vad som syns i rummet. Inga papper med andra elevers namn ska ligga framme.',
+        'Anpassa rummet efter eleven, till exempel ljus, ljud och möjlighet att sitta på olika sätt.']},
       {h:'Stödsamtal', p:'Målet är att eleven ska känna sig lyssnad på och få hjälp att se sin situation tydligare. Verktygen nedan kommer från motiverande samtal (MI), som är en bra grund för många elevsamtal.', list:[
         'Ställ öppna frågor: ”Hur har du det?” och ”Berätta mer.”',
         'Bekräfta det eleven känner: ”Det låter tungt.”',
@@ -394,6 +401,107 @@ const SECTIONS = [
         'Skriv ner det viktigaste, så att du kan släppa det.',
         'Prata med någon du litar på, utan att röja vem eleven är.',
         'Gör något som ger dig återhämtning efter jobbet.']}
+    ]},
+  { id:'organisation', title:'Kuratorn i organisationen', badge:'Og', tone:'sand', handbok:true,
+    lead:'Arbetet på olika nivåer, elevhälsoteamet, konsultation till personal, utredningar, handlingsplaner och skolmiljön.',
+    blocks:[
+      {h:'Främjande, förebyggande och åtgärdande', list:[
+        'Främjande arbete stärker det som gör att elever mår bra och lär sig, till exempel trygga relationer, delaktighet och ett gott klimat. Det riktar sig till alla.',
+        'Förebyggande arbete minskar risker innan problem uppstår, till exempel insatser mot kränkningar eller tidiga signaler om frånvaro.',
+        'Åtgärdande arbete sätts in när en elev eller en grupp redan har svårigheter.',
+        'Elevhälsan ska främst arbeta främjande och förebyggande. Planera in tid för det, så att det åtgärdande arbetet inte tar all tid.']},
+      {h:'Tre nivåer', list:[
+        'Individnivå: stödsamtal, psykosocial kartläggning och uppföljning av enskilda elever.',
+        'Gruppnivå: klassklimat, kamratrelationer, konflikter, utanförskap och insatser i grupp.',
+        'Skolnivå: skolans rutiner, närvaroarbete, trygghetsarbete och analys av problem som återkommer.'],
+        p2:'Ser du samma problem hos flera elever? Då kan lösningen behöva ligga på grupp- eller skolnivå i stället för i fler enskilda samtal.'},
+      {h:'Kuratorn i elevhälsoteamet', list:[
+        'Du bidrar med det psykosociala perspektivet: elevens relationer, hemsituation, mående och sammanhang.',
+        'Förbered dig inför mötet: vad är frågan, vad vet du och vad behöver teamet ta ställning till?',
+        'Dela bara de uppgifter som behövs för att teamet ska kunna hjälpa eleven. Sekretessen gäller även i teamet.',
+        'Se till att det bestäms vem som gör vad, och när ni följer upp.',
+        'Lyft frågor som faller mellan stolarna, i stället för att ta dem själv.']},
+      {type:'tip', h:'En enkel struktur för ett ärende i EHT', steps:[
+        'Vad är frågan, och vem tar upp den?',
+        'Vad vet vi, och vad är tolkningar?',
+        'Vad har redan prövats, och med vilket resultat?',
+        'Vad ska göras, av vem och när?',
+        'När och hur följer vi upp?']},
+      {h:'Konsultation till personal', p:'Lärare och mentorer möter eleverna varje dag. Genom konsultation kan du hjälpa dem att förstå elevens situation och hitta sätt att möta eleven, utan att ta över deras ansvar. Det du vet om eleven under sekretess delar du bara om det behövs och är tillåtet.', steps:[
+        'Vad ser du hos eleven eller gruppen?',
+        'När och var uppstår svårigheterna, och när fungerar det bättre?',
+        'Vad har redan prövats?',
+        'Vad kan ändras i lärmiljön eller i bemötandet?',
+        'Vem gör vad, och när följer vi upp?']},
+      {h:'Utredningar', list:[
+        'Klargör uppdraget först: vem har beställt utredningen, vad ska den svara på och vem ansvarar för den?',
+        'Rektor ansvarar för utredningar om särskilt stöd enligt 3 kap. skollagen, och huvudmannen för utredningar av kränkande behandling enligt 6 kap. skollagen. Kuratorn bidrar ofta med den psykosociala delen eller med samtal.',
+        'Låt eleven komma till tals och berätta med egna ord.',
+        'Håll isär det du har sett och hört från dina tolkningar.',
+        'Skriv sakligt, så att texten tål att läsas av eleven och vårdnadshavarna.']},
+      {h:'Handlingsplaner', p:'Det kan vara ett åtgärdsprogram, en plan vid hög frånvaro eller en plan för en grupp. En bra plan är konkret och går att följa upp.', list:[
+        'Ett tydligt mål: vad ska bli annorlunda?',
+        'Konkreta åtgärder, med en ansvarig för varje åtgärd.',
+        'En tidsram och ett datum för uppföljning.',
+        'Elevens och vårdnadshavarnas delaktighet. Har de fått säga vad de tycker?',
+        'En bedömning vid uppföljningen: har åtgärderna gjort skillnad, och vad behöver ändras?']},
+      {type:'tip', h:'Du ansvarar inte för allt', p:'Kuratorn bidrar till utredningar och planer, men ansvaret ligger ofta hos rektor eller huvudmannen. Följ huvudmannens rutiner, och fråga rektor om ansvaret är otydligt.'},
+      {h:'Värdegrund och skolmiljö', p:'Trygghet, trivsel och elevinflytande är hela skolans ansvar. Skolan ska varje år ha en plan mot kränkande behandling (6 kap. 8 § skollagen) och arbeta med aktiva åtgärder mot diskriminering (3 kap. diskrimineringslagen). Kuratorn kan bidra på flera sätt:', list:[
+        'Kartlägga tryggheten tillsammans med eleverna, till exempel platser och tider där elever känner sig otrygga.',
+        'Analysera elevenkäter och se vilka mönster som återkommer.',
+        'Arbeta med gruppklimat, språkbruk, normer och tillhörighet i klasser.',
+        'Planera förebyggande insatser tillsammans med personal och skolledning.',
+        'Följa upp om insatserna gör skillnad.']}
+    ]},
+  { id:'kunskap', title:'Kunskapsbank', badge:'Kb', tone:'dimma', handbok:true,
+    lead:'Lagar och styrdokument, risk- och skyddsfaktorer, ordlista och frågor för reflektion kring yrket.',
+    blocks:[
+      {h:'Lagar och styrdokument', list:[
+        'Skollagen (2010:800): elevhälsan i 2 kap. 25 §, särskilt stöd i 3 kap., kränkande behandling i 6 kap. och tystnadsplikt i fristående skolor i 29 kap.',
+        'Socialtjänstlagen (2025:400): anmälningsskyldigheten i 19 kap. 1 §.',
+        'Offentlighets- och sekretesslagen (2009:400): sekretess i elevhälsan i 23 kap. 2 §.',
+        'Diskrimineringslagen (2008:567): förbud mot diskriminering och skolans arbete med aktiva åtgärder.',
+        'Arbetsmiljölagen (1977:1160): arbetsgivarens ansvar för din arbetsmiljö, även den psykosociala.',
+        'Barnkonventionen, som gäller som svensk lag sedan 2020.',
+        'Läroplanerna, till exempel Lgr22, med skolans värdegrund och uppdrag.',
+        'Dataskyddsförordningen (GDPR): hur personuppgifter får hanteras.']},
+      {h:'Lagkrav, vägledning eller råd?', list:[
+        'Lagkrav måste följas, till exempel anmälningsskyldigheten och sekretessen.',
+        'Vägledning från myndigheter, som Skolverket och Socialstyrelsen, visar hur lagen kan tillämpas.',
+        'Huvudmannens rutiner gäller där du arbetar. Följ dem.',
+        'Råden i Kuratorsguiden är stöd för reflektion. De ersätter inte lag, vägledning eller rutiner.']},
+      {h:'Risk- och skyddsfaktorer', p:'Risk- och skyddsfaktorer hjälper dig att se elevens hela sammanhang. De är inget poängsystem och ersätter inte din professionella bedömning. En enskild riskfaktor betyder inte att eleven far illa, och skyddsfaktorer kan väga upp risker.', list:[
+        'Eleven själv: mående, självbild, hälsa och sätt att hantera svårigheter.',
+        'Familjen: stöd och omsorg, konflikter, ekonomi och vårdnadshavarnas mående.',
+        'Kamrater: tillhörighet, vänskap, utanförskap och kränkningar.',
+        'Skolan: relationer till vuxna, närvaro, studieresultat och hur trygg skolan är.',
+        'Exempel på skyddsfaktorer: en trygg vuxen, en fungerande skolgång, goda kamratrelationer och fritidsaktiviteter.'],
+        p2:'Väcker bilden oro för att eleven far illa? Då ska du göra en orosanmälan.', link:'oros'},
+      {h:'Ordlista', list:[
+        'Elevhälsoteam (EHT): rektor och elevhälsans personal som tillsammans arbetar med elevers hälsa och lärande.',
+        'Främjande arbete: insatser som stärker det som gör att elever mår bra och lär sig.',
+        'Förebyggande arbete: insatser som minskar risken för att problem uppstår.',
+        'Åtgärdande arbete: insatser när svårigheter redan har uppstått.',
+        'Salutogent perspektiv: att fokusera på det som skapar hälsa, inte bara på det som orsakar ohälsa.',
+        'Psykosocial kartläggning: en beskrivning av elevens situation i skolan, hemma och bland kamrater.',
+        'Åtgärdsprogram: ett beslut av rektor om särskilt stöd för en elev.',
+        'SIP, samordnad individuell plan: en plan när en elev behöver insatser från både kommunen och regionen.',
+        'Orosanmälan: en anmälan till socialtjänsten när ett barn kan fara illa.',
+        'Skyddsbedömning: socialtjänstens bedömning av om ett barn behöver skydd direkt.',
+        'Sekretess: förbud att lämna ut uppgifter, enligt offentlighets- och sekretesslagen.',
+        'Tystnadsplikt: förbud att berätta om uppgifter. Gäller till exempel i fristående skolor.',
+        'Kränkande behandling: ett uppträdande som kränker en elevs värdighet, utan att vara diskriminering.']},
+      {h:'Reflektion kring yrket', list:[
+        'Vilka värderingar styr mina bedömningar, och hur påverkar de mötet med eleven?',
+        'När blir lojaliteten mot skolan svår att förena med elevens bästa?',
+        'Var går gränsen mellan stöd och behandling i mitt arbete?',
+        'Vad gör jag när jag och rektor ser olika på ett ärende?',
+        'Vad behöver jag för att utvecklas i yrket: handledning, nätverk eller fortbildning?']},
+      {type:'tip', h:'Resurser', list:[
+        'Skolverket: vägledning om elevhälsa, särskilt stöd och arbetet mot kränkande behandling.',
+        'Socialstyrelsen: vägledning om orosanmälan och barn som far illa.',
+        'Sveriges Skolkuratorers Förening: nätverk och Nationell handbok för skolkuratorer.',
+        'Akademikerförbundet SSR: fackligt stöd och kompetensbeskrivning för skolkuratorer.']}
     ]}
 ];
 
@@ -407,7 +515,7 @@ const REF = [
     yes:{type:'warn', h:'Gör en orosanmälan', p:'Misstanke räcker, och du ska inte utreda själv. Anmäl genast enligt din kommuns rutin.', link:'oros'},
     no:{type:'tip', h:'Var uppmärksam', p:'Fundera på om det kan finnas mer som du inte vet ännu. Blir du orolig senare ska du anmäla då.'}},
   {h:'Elevens hela situation', handbok:true, q:['Hur har eleven det hemma, och vilka vuxna finns runt eleven?','Hur ser relationerna till kamrater och vuxna i skolan ut?','Finns det normer eller förväntningar, i skolan eller hemma, som påverkar eleven?','Hur ser eleven på sig själv?','Har eleven blivit utsatt för kränkningar?','Är kraven i skolan rimliga för eleven just nu?'], note:true},
-  {h:'Vad är min roll här?', q:['Vilka hinder för lärande handlar det om, och vilka av dem är mitt uppdrag?','Vad är kuratorns uppgift i det här ärendet, och vad är någon annans?','Förväntas jag göra något som egentligen ligger på rektor, mentor, vården eller socialtjänsten?','Vad kan jag göra själv, och vad behöver jag hjälp med?'], note:true},
+  {h:'Vad är min roll här?', q:['På vilken nivå behöver arbetet ske: med eleven, med gruppen eller klassen, eller på skolnivå?','Vilka hinder för lärande handlar det om, och vilka av dem är mitt uppdrag?','Vad är kuratorns uppgift i det här ärendet, och vad är någon annans?','Förväntas jag göra något som egentligen ligger på rektor, mentor, vården eller socialtjänsten?','Vad kan jag göra själv, och vad behöver jag hjälp med?'], note:true},
   {h:'Vad vill eleven?', q:['Vad säger eleven själv att den behöver?','Vad har redan hjälpt, och vad har inte hjälpt?','Har eleven fått säga vad den tycker om nästa steg?'], note:true},
   {h:'Barnets rättigheter', handbok:true, q:['Tillgodoses elevens rättigheter i det här ärendet, till exempel rätten till skydd, till utbildning och att få säga sin mening?','Om inte: vad behöver göras, och vem behöver jag lyfta det med?'], note:true},
   {h:'Vem mer behöver vara med?', chips:['Rektor','Mentor','Skolsköterska','Psykolog','Specialpedagog','Elevhälsoteamet','Vårdnadshavare','Socialtjänsten','BUP eller vården'], q:['Har jag samtycke att prata med dem det gäller?','Bär jag det här ensam, eller är ansvaret fördelat med rektor och elevhälsan?'], note:true},
@@ -500,6 +608,7 @@ function viewHome(){
       <li>Socialtjänstlagen (2025:400), 19 kap. 1 § om anmälningsskyldighet.</li>
       <li>Offentlighets- och sekretesslagen (2009:400), 10 kap. 28 §, 12 kap. 3 § och 23 kap. 2 §.</li>
       <li>Föräldrabalken, 6 kap. 20 c § om uppgiftsskyldighet i vårdnadsutredningar.</li>
+      <li>Diskrimineringslagen (2008:567), arbetsmiljölagen (1977:1160) och barnkonventionen.</li>
       <li>Nationell handbok för skolkuratorer, Sveriges Skolkuratorers Förening (2026).</li>
     </ul>
   </section>`;
