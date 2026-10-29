@@ -133,6 +133,14 @@ a.card{text-decoration:none}
 .block.warn h2{color:var(--n-terracotta)}
 .block.tip{background:var(--n-tint);border-color:transparent}
 .block .see{margin-top:12px}
+/* Ordlista med sökruta */
+.gloss-search{width:100%;max-width:420px;font:inherit;padding:10px 14px;margin:0 0 14px;border:1.5px solid var(--n-line);border-radius:var(--n-radius-sm);background:var(--n-surface);color:var(--n-ink)}
+.gloss-search:focus{border-color:var(--n-accent);outline:none}
+.gloss dl{margin:0}
+.gloss .g-item{padding:8px 0;border-top:1px solid var(--n-line)}
+.gloss .g-item:first-child{border-top:0}
+.gloss dt{font-weight:600}
+.gloss dd{margin:2px 0 0;max-width:64ch}
 
 /* Min kommun */
 .kommun{background:var(--n-tint);border-radius:var(--n-radius);padding:20px 24px}
@@ -477,20 +485,47 @@ const SECTIONS = [
         'Skolan: relationer till vuxna, närvaro, studieresultat och hur trygg skolan är.',
         'Exempel på skyddsfaktorer: en trygg vuxen, en fungerande skolgång, goda kamratrelationer och fritidsaktiviteter.'],
         p2:'Väcker bilden oro för att eleven far illa? Då ska du göra en orosanmälan.', link:'oros'},
-      {h:'Ordlista', list:[
-        'Elevhälsoteam (EHT): rektor och elevhälsans personal som tillsammans arbetar med elevers hälsa och lärande.',
-        'Främjande arbete: insatser som stärker det som gör att elever mår bra och lär sig.',
-        'Förebyggande arbete: insatser som minskar risken för att problem uppstår.',
-        'Åtgärdande arbete: insatser när svårigheter redan har uppstått.',
-        'Salutogent perspektiv: att fokusera på det som skapar hälsa, inte bara på det som orsakar ohälsa.',
-        'Psykosocial kartläggning: en beskrivning av elevens situation i skolan, hemma och bland kamrater.',
-        'Åtgärdsprogram: ett beslut av rektor om särskilt stöd för en elev.',
-        'SIP, samordnad individuell plan: en plan när en elev behöver insatser från både kommunen och regionen.',
-        'Orosanmälan: en anmälan till socialtjänsten när ett barn kan fara illa.',
-        'Skyddsbedömning: socialtjänstens bedömning av om ett barn behöver skydd direkt.',
-        'Sekretess: förbud att lämna ut uppgifter, enligt offentlighets- och sekretesslagen.',
-        'Tystnadsplikt: förbud att berätta om uppgifter. Gäller till exempel i fristående skolor.',
-        'Kränkande behandling: ett uppträdande som kränker en elevs värdighet, utan att vara diskriminering.']},
+      {type:'gloss', h:'Ordlista', terms:[
+        ['ANDTS','Alkohol, narkotika, doping, tobak och spel.'],
+        ['APT','Arbetsplatsträff, ett möte för hela personalgruppen.'],
+        ['Arbetslag','En grupp i skolans personal som träffas regelbundet och planerar arbetet tillsammans.'],
+        ['BUP','Barn- och ungdomspsykiatrin, regionens specialistvård för barn och unga med psykisk ohälsa.'],
+        ['EHM','Elevhälsomöte, ett möte med en tydlig struktur där elevhälsoteamet och pedagoger träffas för att prata om elever eller grupper.'],
+        ['EHT','Elevhälsoteam, rektor och elevhälsans personal som tillsammans arbetar med elevernas hälsa och lärande.'],
+        ['Elevråd','Elevernas eget forum, där de kan påverka sin utbildning och sin skolmiljö.'],
+        ['Elevskyddsombud','En elev som företräder eleverna i skolans arbetsmiljöarbete. Gäller från årskurs 7 i grundskolan och i gymnasieskolan.'],
+        ['Förebyggande arbete','Insatser som minskar risken för att problem uppstår.'],
+        ['Främjande arbete','Insatser som stärker det som gör att elever mår bra och lär sig.'],
+        ['HRV','Hedersrelaterat våld och förtryck.'],
+        ['Huvudman','Den som ytterst ansvarar för skolan, till exempel kommunen eller företaget som driver en fristående skola.'],
+        ['IF','Intellektuell funktionsnedsättning.'],
+        ['Journal','En patientjournal inom hälso- och sjukvården. Kuratorns anteckningar i skolan är ingen patientjournal och följer andra regler. Följ huvudmannens rutiner för dokumentation.'],
+        ['Kränkande behandling','Ett uppträdande som kränker en elevs värdighet, utan att vara diskriminering.'],
+        ['MI','Motiverande samtal, ett samtalssätt som stärker elevens egen motivation till förändring.'],
+        ['NPF','Neuropsykiatrisk funktionsnedsättning, till exempel autism eller adhd.'],
+        ['Orosanmälan','En anmälan till socialtjänsten när ett barn kan fara illa.'],
+        ['Psykosocial kartläggning','En beskrivning av elevens situation i skolan, hemma och bland kamrater.'],
+        ['Psykosocialt','Samspelet mellan en persons psykiska mående och den sociala omgivningen.'],
+        ['Ramtid','Den tid under dagen då lärare enligt avtal ska vara på plats på skolan.'],
+        ['Salutogent perspektiv','Att fokusera på det som skapar hälsa, inte bara på det som orsakar ohälsa.'],
+        ['Samråd','Ett möte där skolan bjuder in berörda, till exempel elev och vårdnadshavare, för att prata om elevens situation.'],
+        ['Sekretess','Förbud att lämna ut uppgifter, enligt offentlighets- och sekretesslagen.'],
+        ['SIP','Samordnad individuell plan, en plan när en elev behöver insatser från både kommunen och regionen.'],
+        ['SKA','Systematiskt kvalitetsarbete, skolans arbete med att följa upp, analysera och utveckla verksamheten.'],
+        ['Skolform','En typ av utbildning i skolväsendet, till exempel grundskola eller gymnasieskola.'],
+        ['Skolsocialt team','En form av samverkan där skola och socialtjänst arbetar tillsammans.'],
+        ['Skolverket','Den statliga myndighet som styr och stöder skolan, så att alla elever får en likvärdig utbildning.'],
+        ['Skyddsbedömning','Socialtjänstens bedömning av om ett barn behöver skydd direkt.'],
+        ['SPSM','Specialpedagogiska skolmyndigheten.'],
+        ['SSPF','Skola, socialtjänst, polis och fritid. En modell för strukturerad samverkan kring unga.'],
+        ['SU','Särskild undervisningsgrupp.'],
+        ['TSI','Tidiga och samordnade insatser för barn och unga.'],
+        ['Tvärprofessionellt arbete','När olika yrkesgrupper arbetar strukturerat tillsammans mot gemensamma mål.'],
+        ['Tystnadsplikt','Förbud att berätta om uppgifter. Gäller till exempel i fristående skolor.'],
+        ['USS','Utredning av behov av särskilt stöd.'],
+        ['VH','Vårdnadshavare.'],
+        ['Åtgärdande arbete','Insatser när svårigheter redan har uppstått.'],
+        ['ÅP','Åtgärdsprogram, ett beslut av rektor om särskilt stöd för en elev.']]},
       {h:'Reflektion kring yrket', list:[
         'Vilka värderingar styr mina bedömningar, och hur påverkar de mötet med eleven?',
         'När blir lojaliteten mot skolan svår att förena med elevens bästa?',
@@ -614,8 +649,18 @@ function viewHome(){
   </section>`;
 }
 
+function glossHtml(b, i){
+  const items = [...b.terms].sort((x, y) => x[0].localeCompare(y[0], 'sv')).map(([t, d]) =>
+    `<div class="g-item" data-text="${esc((t + ' ' + d).toLowerCase())}"><dt>${esc(t)}</dt><dd>${esc(d)}</dd></div>`).join('');
+  return `<section class="block gloss" id="b${i}"><h2>${esc(b.h)}</h2>
+    <label for="gloss-q" class="small" style="display:block;margin-bottom:4px">Sök i ordlistan</label>
+    <input id="gloss-q" class="gloss-search no-print" type="search" autocomplete="off" placeholder="Till exempel SIP eller huvudman">
+    <dl>${items}</dl><p class="small" id="gloss-none" hidden>Inget begrepp matchar sökningen.</p></section>`;
+}
+
 function blockHtml(b, i){
   if (b.type === 'kommun') return kommunBox();
+  if (b.type === 'gloss') return glossHtml(b, i);
   const cls = b.type ? ` ${b.type}` : '';
   let body = '';
   if (b.p) body += `<p>${esc(b.p)}</p>`;
@@ -734,6 +779,12 @@ $app.addEventListener('click', e => {
 });
 $app.addEventListener('input', e => {
   if (e.target.id === 'note') REFDATA.notes[e.target.dataset.key] = e.target.value;
+  if (e.target.id === 'gloss-q') {
+    const q = e.target.value.trim().toLowerCase();
+    let n = 0;
+    document.querySelectorAll('.gloss .g-item').forEach(el => { const hit = !q || el.dataset.text.includes(q); el.hidden = !hit; if (hit) n++; });
+    document.getElementById('gloss-none').hidden = n > 0;
+  }
 });
 $app.addEventListener('change', e => {
   if (e.target.dataset.check != null) REFDATA.checks[e.target.dataset.check] = e.target.checked;
